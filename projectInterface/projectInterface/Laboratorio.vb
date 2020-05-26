@@ -1,9 +1,9 @@
-﻿<Serializable()> Public Class Farmacia
+﻿Public Class Laboratorio
     Private _nome As String
-    Private _endereco As String
+    Private _endereço As String
     Private _telefone As String
-    Private _NIF_farmacia As String
-    Private _n_alvara As String
+    Private _codigo As String
+    Private _nome_farmaco As String
 
     Public Property Nome As String
         Get
@@ -14,12 +14,12 @@
         End Set
     End Property
 
-    Public Property Endereco As String
+    Public Property Endereço As String
         Get
-            Return _endereco
+            Return _endereço
         End Get
         Set(value As String)
-            _endereco = value
+            _endereço = value
         End Set
     End Property
 
@@ -32,21 +32,21 @@
         End Set
     End Property
 
-    Public Property NIF_farmacia As String
+    Public Property Codigo As String
         Get
-            Return _NIF_farmacia
+            Return _codigo
         End Get
         Set(value As String)
-            _NIF_farmacia = value
+            _codigo = value
         End Set
     End Property
 
-    Public Property N_alvara As String
+    Public Property Nome_farmaco As String
         Get
-            Return _n_alvara
+            Return _nome_farmaco
         End Get
         Set(value As String)
-            _n_alvara = value
+            _nome_farmaco = value
         End Set
     End Property
 End Class
