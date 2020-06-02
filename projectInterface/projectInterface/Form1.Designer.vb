@@ -23,7 +23,7 @@ Partial Class openingForm
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(openingForm))
-        Me.ListFarmacias = New System.Windows.Forms.Panel()
+        Me.farmPanel = New System.Windows.Forms.Panel()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -40,33 +40,46 @@ Partial Class openingForm
         Me.Label1 = New System.Windows.Forms.Label()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.listFarmacia = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.ListFarmacias.SuspendLayout()
+        Me.listArmazenistas = New System.Windows.Forms.Button()
+        Me.armPanel = New System.Windows.Forms.Panel()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.txtArmTelefone = New System.Windows.Forms.TextBox()
+        Me.txtArmNIF = New System.Windows.Forms.TextBox()
+        Me.txtArmEndereço = New System.Windows.Forms.TextBox()
+        Me.txtArmNome = New System.Windows.Forms.TextBox()
+        Me.PictureBox3 = New System.Windows.Forms.PictureBox()
+        Me.ListBox2 = New System.Windows.Forms.ListBox()
+        Me.farmPanel.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.openPanel.SuspendLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.armPanel.SuspendLayout()
+        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'ListFarmacias
+        'farmPanel
         '
-        Me.ListFarmacias.Controls.Add(Me.Label6)
-        Me.ListFarmacias.Controls.Add(Me.Label5)
-        Me.ListFarmacias.Controls.Add(Me.Label4)
-        Me.ListFarmacias.Controls.Add(Me.Label3)
-        Me.ListFarmacias.Controls.Add(Me.Nome)
-        Me.ListFarmacias.Controls.Add(Me.textTelefone)
-        Me.ListFarmacias.Controls.Add(Me.textAlvara)
-        Me.ListFarmacias.Controls.Add(Me.textNIF)
-        Me.ListFarmacias.Controls.Add(Me.textEndereco)
-        Me.ListFarmacias.Controls.Add(Me.textNome)
-        Me.ListFarmacias.Controls.Add(Me.PictureBox1)
-        Me.ListFarmacias.Controls.Add(Me.ListBox1)
-        Me.ListFarmacias.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ListFarmacias.Location = New System.Drawing.Point(0, 0)
-        Me.ListFarmacias.Name = "ListFarmacias"
-        Me.ListFarmacias.Size = New System.Drawing.Size(800, 450)
-        Me.ListFarmacias.TabIndex = 21
-        Me.ListFarmacias.Visible = False
+        Me.farmPanel.Controls.Add(Me.Label6)
+        Me.farmPanel.Controls.Add(Me.Label5)
+        Me.farmPanel.Controls.Add(Me.Label4)
+        Me.farmPanel.Controls.Add(Me.Label3)
+        Me.farmPanel.Controls.Add(Me.Nome)
+        Me.farmPanel.Controls.Add(Me.textTelefone)
+        Me.farmPanel.Controls.Add(Me.textAlvara)
+        Me.farmPanel.Controls.Add(Me.textNIF)
+        Me.farmPanel.Controls.Add(Me.textEndereco)
+        Me.farmPanel.Controls.Add(Me.textNome)
+        Me.farmPanel.Controls.Add(Me.PictureBox1)
+        Me.farmPanel.Controls.Add(Me.ListBox1)
+        Me.farmPanel.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.farmPanel.Location = New System.Drawing.Point(0, 0)
+        Me.farmPanel.Name = "farmPanel"
+        Me.farmPanel.Size = New System.Drawing.Size(800, 450)
+        Me.farmPanel.TabIndex = 21
+        Me.farmPanel.Visible = False
         '
         'Label6
         '
@@ -118,7 +131,7 @@ Partial Class openingForm
         Me.textTelefone.BackColor = System.Drawing.SystemColors.Control
         Me.textTelefone.Location = New System.Drawing.Point(562, 307)
         Me.textTelefone.Name = "textTelefone"
-        Me.textTelefone.Size = New System.Drawing.Size(100, 20)
+        Me.textTelefone.Size = New System.Drawing.Size(173, 20)
         Me.textTelefone.TabIndex = 22
         '
         'textAlvara
@@ -126,7 +139,7 @@ Partial Class openingForm
         Me.textAlvara.BackColor = System.Drawing.SystemColors.Control
         Me.textAlvara.Location = New System.Drawing.Point(345, 307)
         Me.textAlvara.Name = "textAlvara"
-        Me.textAlvara.Size = New System.Drawing.Size(100, 20)
+        Me.textAlvara.Size = New System.Drawing.Size(174, 20)
         Me.textAlvara.TabIndex = 21
         '
         'textNIF
@@ -134,7 +147,7 @@ Partial Class openingForm
         Me.textNIF.BackColor = System.Drawing.SystemColors.Control
         Me.textNIF.Location = New System.Drawing.Point(562, 255)
         Me.textNIF.Name = "textNIF"
-        Me.textNIF.Size = New System.Drawing.Size(100, 20)
+        Me.textNIF.Size = New System.Drawing.Size(173, 20)
         Me.textNIF.TabIndex = 20
         '
         'textEndereco
@@ -142,7 +155,7 @@ Partial Class openingForm
         Me.textEndereco.BackColor = System.Drawing.SystemColors.Control
         Me.textEndereco.Location = New System.Drawing.Point(345, 255)
         Me.textEndereco.Name = "textEndereco"
-        Me.textEndereco.Size = New System.Drawing.Size(100, 20)
+        Me.textEndereco.Size = New System.Drawing.Size(174, 20)
         Me.textEndereco.TabIndex = 19
         '
         'textNome
@@ -150,7 +163,7 @@ Partial Class openingForm
         Me.textNome.BackColor = System.Drawing.SystemColors.Control
         Me.textNome.Location = New System.Drawing.Point(345, 207)
         Me.textNome.Name = "textNome"
-        Me.textNome.Size = New System.Drawing.Size(100, 20)
+        Me.textNome.Size = New System.Drawing.Size(174, 20)
         Me.textNome.TabIndex = 18
         '
         'PictureBox1
@@ -179,7 +192,7 @@ Partial Class openingForm
         Me.openPanel.Controls.Add(Me.Label1)
         Me.openPanel.Controls.Add(Me.PictureBox2)
         Me.openPanel.Controls.Add(Me.listFarmacia)
-        Me.openPanel.Controls.Add(Me.Button2)
+        Me.openPanel.Controls.Add(Me.listArmazenistas)
         Me.openPanel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.openPanel.Location = New System.Drawing.Point(0, 0)
         Me.openPanel.Name = "openPanel"
@@ -216,42 +229,154 @@ Partial Class openingForm
         Me.listFarmacia.Text = "Listar Farmácias"
         Me.listFarmacia.UseVisualStyleBackColor = True
         '
-        'Button2
+        'listArmazenistas
         '
-        Me.Button2.Location = New System.Drawing.Point(316, 325)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(168, 58)
-        Me.Button2.TabIndex = 20
-        Me.Button2.Text = "Listar Armazenistas"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.listArmazenistas.Location = New System.Drawing.Point(316, 325)
+        Me.listArmazenistas.Name = "listArmazenistas"
+        Me.listArmazenistas.Size = New System.Drawing.Size(168, 58)
+        Me.listArmazenistas.TabIndex = 20
+        Me.listArmazenistas.Text = "Listar Armazenistas"
+        Me.listArmazenistas.UseVisualStyleBackColor = True
+        '
+        'armPanel
+        '
+        Me.armPanel.Controls.Add(Me.Label2)
+        Me.armPanel.Controls.Add(Me.Label8)
+        Me.armPanel.Controls.Add(Me.Label9)
+        Me.armPanel.Controls.Add(Me.Label10)
+        Me.armPanel.Controls.Add(Me.txtArmTelefone)
+        Me.armPanel.Controls.Add(Me.txtArmNIF)
+        Me.armPanel.Controls.Add(Me.txtArmEndereço)
+        Me.armPanel.Controls.Add(Me.txtArmNome)
+        Me.armPanel.Controls.Add(Me.PictureBox3)
+        Me.armPanel.Controls.Add(Me.ListBox2)
+        Me.armPanel.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.armPanel.Location = New System.Drawing.Point(0, 0)
+        Me.armPanel.Name = "armPanel"
+        Me.armPanel.Size = New System.Drawing.Size(800, 450)
+        Me.armPanel.TabIndex = 28
+        Me.armPanel.Visible = False
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(559, 239)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(49, 13)
+        Me.Label2.TabIndex = 27
+        Me.Label2.Text = "Telefone"
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(559, 191)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(24, 13)
+        Me.Label8.TabIndex = 25
+        Me.Label8.Text = "NIF"
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(342, 239)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(53, 13)
+        Me.Label9.TabIndex = 24
+        Me.Label9.Text = "Endereço"
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Location = New System.Drawing.Point(342, 191)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(35, 13)
+        Me.Label10.TabIndex = 23
+        Me.Label10.Text = "Nome"
+        '
+        'txtArmTelefone
+        '
+        Me.txtArmTelefone.BackColor = System.Drawing.SystemColors.Control
+        Me.txtArmTelefone.Location = New System.Drawing.Point(562, 255)
+        Me.txtArmTelefone.Name = "txtArmTelefone"
+        Me.txtArmTelefone.Size = New System.Drawing.Size(173, 20)
+        Me.txtArmTelefone.TabIndex = 22
+        '
+        'txtArmNIF
+        '
+        Me.txtArmNIF.BackColor = System.Drawing.SystemColors.Control
+        Me.txtArmNIF.Location = New System.Drawing.Point(562, 207)
+        Me.txtArmNIF.Name = "txtArmNIF"
+        Me.txtArmNIF.Size = New System.Drawing.Size(173, 20)
+        Me.txtArmNIF.TabIndex = 20
+        '
+        'txtArmEndereço
+        '
+        Me.txtArmEndereço.BackColor = System.Drawing.SystemColors.Control
+        Me.txtArmEndereço.Location = New System.Drawing.Point(345, 255)
+        Me.txtArmEndereço.Name = "txtArmEndereço"
+        Me.txtArmEndereço.Size = New System.Drawing.Size(174, 20)
+        Me.txtArmEndereço.TabIndex = 19
+        '
+        'txtArmNome
+        '
+        Me.txtArmNome.BackColor = System.Drawing.SystemColors.Control
+        Me.txtArmNome.Location = New System.Drawing.Point(345, 207)
+        Me.txtArmNome.Name = "txtArmNome"
+        Me.txtArmNome.Size = New System.Drawing.Size(174, 20)
+        Me.txtArmNome.TabIndex = 18
+        '
+        'PictureBox3
+        '
+        Me.PictureBox3.Image = CType(resources.GetObject("PictureBox3.Image"), System.Drawing.Image)
+        Me.PictureBox3.Location = New System.Drawing.Point(476, 31)
+        Me.PictureBox3.Margin = New System.Windows.Forms.Padding(2)
+        Me.PictureBox3.Name = "PictureBox3"
+        Me.PictureBox3.Size = New System.Drawing.Size(79, 85)
+        Me.PictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.PictureBox3.TabIndex = 17
+        Me.PictureBox3.TabStop = False
+        '
+        'ListBox2
+        '
+        Me.ListBox2.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.ListBox2.FormattingEnabled = True
+        Me.ListBox2.Location = New System.Drawing.Point(2, 2)
+        Me.ListBox2.Margin = New System.Windows.Forms.Padding(2)
+        Me.ListBox2.Name = "ListBox2"
+        Me.ListBox2.Size = New System.Drawing.Size(226, 455)
+        Me.ListBox2.TabIndex = 1
         '
         'openingForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
-        Me.Controls.Add(Me.ListFarmacias)
+        Me.Controls.Add(Me.armPanel)
         Me.Controls.Add(Me.openPanel)
+        Me.Controls.Add(Me.farmPanel)
         Me.Name = "openingForm"
         Me.Text = "Form1"
-        Me.ListFarmacias.ResumeLayout(False)
-        Me.ListFarmacias.PerformLayout()
+        Me.farmPanel.ResumeLayout(False)
+        Me.farmPanel.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.openPanel.ResumeLayout(False)
         Me.openPanel.PerformLayout()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.armPanel.ResumeLayout(False)
+        Me.armPanel.PerformLayout()
+        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
 
-    Friend WithEvents ListFarmacias As Panel
+    Friend WithEvents farmPanel As Panel
     Friend WithEvents PictureBox1 As PictureBox
     Friend WithEvents ListBox1 As ListBox
     Friend WithEvents openPanel As Panel
     Friend WithEvents Label1 As Label
     Friend WithEvents PictureBox2 As PictureBox
     Friend WithEvents listFarmacia As Button
-    Friend WithEvents Button2 As Button
+    Friend WithEvents listArmazenistas As Button
     Friend WithEvents Label6 As Label
     Friend WithEvents Label5 As Label
     Friend WithEvents Label4 As Label
@@ -262,4 +387,15 @@ Partial Class openingForm
     Friend WithEvents textNIF As TextBox
     Friend WithEvents textEndereco As TextBox
     Friend WithEvents textNome As TextBox
+    Friend WithEvents armPanel As Panel
+    Friend WithEvents Label2 As Label
+    Friend WithEvents Label8 As Label
+    Friend WithEvents Label9 As Label
+    Friend WithEvents Label10 As Label
+    Friend WithEvents txtArmTelefone As TextBox
+    Friend WithEvents txtArmNIF As TextBox
+    Friend WithEvents txtArmEndereço As TextBox
+    Friend WithEvents txtArmNome As TextBox
+    Friend WithEvents PictureBox3 As PictureBox
+    Friend WithEvents ListBox2 As ListBox
 End Class

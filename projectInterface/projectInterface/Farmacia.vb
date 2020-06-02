@@ -49,4 +49,8 @@
             _n_alvara = value
         End Set
     End Property
+
+    Overrides Function ToString() As String
+        Return _nome
+    End Function
 End Class

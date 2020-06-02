@@ -1,4 +1,4 @@
-﻿Public Class Armazenista
+﻿<Serializable()> Public Class Armazenista
     Private _nome As String
     Private _endereço As String
     Private _telefone As String
@@ -49,4 +49,8 @@
             _NIF_farmacia = value
         End Set
     End Property
+
+    Overrides Function ToString() As String
+        Return _nome
+    End Function
 End Class
