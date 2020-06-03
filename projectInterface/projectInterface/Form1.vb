@@ -108,6 +108,7 @@ Public Class openingForm
 
     ' Helper Functions
     Private Sub ShowFarmacia()
+        LockTextFields()
         If ListBox1.Items.Count = 0 Or currentSelection < 0 Then Exit Sub
         Dim farm As New Farmacia
         farm = CType(ListBox1.Items.Item(currentSelection), Farmacia)
@@ -119,6 +120,7 @@ Public Class openingForm
     End Sub
 
     Private Sub ShowArmazenistas()
+        LockTextFields()
         If ListBox2.Items.Count = 0 Or currentSelection < 0 Then Exit Sub
         Dim arm As New Armazenista
         arm = CType(ListBox2.Items.Item(currentSelection), Armazenista)
@@ -128,4 +130,112 @@ Public Class openingForm
         txtArmTelefone.Text = arm.Telefone
     End Sub
 
+    Private Sub LockTextFields()
+        textNome.ReadOnly = True
+        textEndereco.ReadOnly = True
+        textNIF.ReadOnly = True
+        textTelefone.ReadOnly = True
+        textAlvara.ReadOnly = True
+        txtArmNome.ReadOnly = True
+        txtArmEndereço.ReadOnly = True
+        txtArmNIF.ReadOnly = True
+        txtArmTelefone.ReadOnly = True
+    End Sub
+
+    Private Sub UnlockTextFields()
+        textNome.ReadOnly = False
+        textEndereco.ReadOnly = False
+        textNIF.ReadOnly = False
+        textTelefone.ReadOnly = False
+        textAlvara.ReadOnly = False
+        txtArmNome.ReadOnly = False
+        txtArmEndereço.ReadOnly = False
+        txtArmNIF.ReadOnly = False
+        txtArmTelefone.ReadOnly = False
+    End Sub
+
+    Private Sub ClearFields()
+        textNome.Text = ""
+        textEndereco.Text = ""
+        textNIF.Text = ""
+        textTelefone.Text = ""
+        textAlvara.Text = ""
+        txtArmNome.Text = ""
+        txtArmEndereço.Text = ""
+        txtArmNIF.Text = ""
+        txtArmTelefone.Text = ""
+    End Sub
+
+    Private Sub buttonAdd_Click(sender As Object, e As EventArgs) Handles buttonAdd.Click
+        ClearFields()
+        UnlockTextFields()
+        ListBox1.Enabled = False
+    End Sub
+
+    Private Sub buttonOk_Click(sender As Object, e As EventArgs) Handles buttonOk.Click
+        SaveFarmacia()
+
+        Dim idx As Integer = ListBox1.FindString(textNIF.Text)
+        ListBox1.SelectedIndex = idx
+        ShowButtons()
+    End Sub
+
+    Private Sub SaveFarmacia()
+        Dim F As New Farmacia
+        F.Nome = textNome.Text
+        F.Endereco = textEndereco.Text
+        F.Telefone = textTelefone.Text
+        F.NIF_farmacia = textNIF.Text
+        F.N_alvara = textAlvara.Text
+
+        InsertFarmacia(F)
+    End Sub
+
+    Private Sub InsertFarmacia(ByVal F As Farmacia)
+        Dim nome As New SqlParameter
+        Dim endereco As New SqlParameter
+        Dim telefone As New SqlParameter
+        Dim NIF_farmacia As New SqlParameter
+        Dim n_alvara As New SqlParameter
+
+        nome.ParameterName = "@nome"
+        nome.SqlDbType = SqlDbType.VarChar
+        nome.Value = F.Nome
+
+        endereco.ParameterName = "@endereço"
+        endereco.SqlDbType = SqlDbType.VarChar
+        endereco.Value = F.Endereco
+
+        telefone.ParameterName = "@telefone"
+        telefone.SqlDbType = SqlDbType.Decimal
+        telefone.Value = F.Telefone
+
+        NIF_farmacia.ParameterName = "@NIF_farmacia"
+        NIF_farmacia.SqlDbType = SqlDbType.Decimal
+        NIF_farmacia.Value = F.NIF_farmacia
+
+        n_alvara.ParameterName = "@n_alvara"
+        n_alvara.SqlDbType = SqlDbType.Int
+        n_alvara.Value = F.N_alvara
+
+        CMD.Parameters.Clear()
+        CMD.Parameters.Add(nome)
+        CMD.Parameters.Add(endereco)
+        CMD.Parameters.Add(telefone)
+        CMD.Parameters.Add(NIF_farmacia)
+        CMD.Parameters.Add(n_alvara)
+        CMD.CommandText =
+                           "EXEC GestFarm.p_InsertFarmacia @nome, @endereço, @telefone, @NIF_farmacia, @n_alvara"
+
+        CN.Open()
+
+        CMD.ExecuteNonQuery()
+
+        CN.Close()
+    End Sub
+
+
+    Private Sub ShowButtons()
+
+    End Sub
 End Class

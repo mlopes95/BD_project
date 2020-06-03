@@ -24,9 +24,9 @@ Partial Class openingForm
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(openingForm))
         Me.farmPanel = New System.Windows.Forms.Panel()
-        Me.Button3 = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.buttonRemove = New System.Windows.Forms.Button()
+        Me.buttonEdit = New System.Windows.Forms.Button()
+        Me.buttonAdd = New System.Windows.Forms.Button()
         Me.voltarFarm = New System.Windows.Forms.Button()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -60,6 +60,8 @@ Partial Class openingForm
         Me.txtArmNome = New System.Windows.Forms.TextBox()
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
         Me.ListBox2 = New System.Windows.Forms.ListBox()
+        Me.buttonOk = New System.Windows.Forms.Button()
+        Me.buttonCancel = New System.Windows.Forms.Button()
         Me.farmPanel.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.openPanel.SuspendLayout()
@@ -70,9 +72,11 @@ Partial Class openingForm
         '
         'farmPanel
         '
-        Me.farmPanel.Controls.Add(Me.Button3)
-        Me.farmPanel.Controls.Add(Me.Button2)
-        Me.farmPanel.Controls.Add(Me.Button1)
+        Me.farmPanel.Controls.Add(Me.buttonCancel)
+        Me.farmPanel.Controls.Add(Me.buttonOk)
+        Me.farmPanel.Controls.Add(Me.buttonRemove)
+        Me.farmPanel.Controls.Add(Me.buttonEdit)
+        Me.farmPanel.Controls.Add(Me.buttonAdd)
         Me.farmPanel.Controls.Add(Me.voltarFarm)
         Me.farmPanel.Controls.Add(Me.Label6)
         Me.farmPanel.Controls.Add(Me.Label5)
@@ -93,32 +97,32 @@ Partial Class openingForm
         Me.farmPanel.TabIndex = 21
         Me.farmPanel.Visible = False
         '
-        'Button3
+        'buttonRemove
         '
-        Me.Button3.Location = New System.Drawing.Point(658, 325)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(130, 41)
-        Me.Button3.TabIndex = 31
-        Me.Button3.Text = "Remover"
-        Me.Button3.UseVisualStyleBackColor = True
+        Me.buttonRemove.Location = New System.Drawing.Point(658, 325)
+        Me.buttonRemove.Name = "buttonRemove"
+        Me.buttonRemove.Size = New System.Drawing.Size(130, 41)
+        Me.buttonRemove.TabIndex = 31
+        Me.buttonRemove.Text = "Remover"
+        Me.buttonRemove.UseVisualStyleBackColor = True
         '
-        'Button2
+        'buttonEdit
         '
-        Me.Button2.Location = New System.Drawing.Point(453, 325)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(130, 41)
-        Me.Button2.TabIndex = 30
-        Me.Button2.Text = "Editar"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.buttonEdit.Location = New System.Drawing.Point(453, 325)
+        Me.buttonEdit.Name = "buttonEdit"
+        Me.buttonEdit.Size = New System.Drawing.Size(130, 41)
+        Me.buttonEdit.TabIndex = 30
+        Me.buttonEdit.Text = "Editar"
+        Me.buttonEdit.UseVisualStyleBackColor = True
         '
-        'Button1
+        'buttonAdd
         '
-        Me.Button1.Location = New System.Drawing.Point(247, 325)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(130, 41)
-        Me.Button1.TabIndex = 29
-        Me.Button1.Text = "Adicionar"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.buttonAdd.Location = New System.Drawing.Point(247, 325)
+        Me.buttonAdd.Name = "buttonAdd"
+        Me.buttonAdd.Size = New System.Drawing.Size(130, 41)
+        Me.buttonAdd.TabIndex = 29
+        Me.buttonAdd.Text = "Adicionar"
+        Me.buttonAdd.UseVisualStyleBackColor = True
         '
         'voltarFarm
         '
@@ -434,6 +438,24 @@ Partial Class openingForm
         Me.ListBox2.Size = New System.Drawing.Size(226, 455)
         Me.ListBox2.TabIndex = 1
         '
+        'buttonOk
+        '
+        Me.buttonOk.Location = New System.Drawing.Point(357, 325)
+        Me.buttonOk.Name = "buttonOk"
+        Me.buttonOk.Size = New System.Drawing.Size(127, 41)
+        Me.buttonOk.TabIndex = 32
+        Me.buttonOk.Text = "Ok"
+        Me.buttonOk.UseVisualStyleBackColor = True
+        '
+        'buttonCancel
+        '
+        Me.buttonCancel.Location = New System.Drawing.Point(562, 325)
+        Me.buttonCancel.Name = "buttonCancel"
+        Me.buttonCancel.Size = New System.Drawing.Size(130, 41)
+        Me.buttonCancel.TabIndex = 33
+        Me.buttonCancel.Text = "Cancelar"
+        Me.buttonCancel.UseVisualStyleBackColor = True
+        '
         'openingForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -488,10 +510,12 @@ Partial Class openingForm
     Friend WithEvents ListBox2 As ListBox
     Friend WithEvents voltarArm As Button
     Friend WithEvents voltarFarm As Button
-    Friend WithEvents Button3 As Button
-    Friend WithEvents Button2 As Button
-    Friend WithEvents Button1 As Button
+    Friend WithEvents buttonRemove As Button
+    Friend WithEvents buttonEdit As Button
+    Friend WithEvents buttonAdd As Button
     Friend WithEvents Button4 As Button
     Friend WithEvents Button5 As Button
     Friend WithEvents Button6 As Button
+    Friend WithEvents buttonCancel As Button
+    Friend WithEvents buttonOk As Button
 End Class
