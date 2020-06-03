@@ -37,28 +37,6 @@ Public Class openingForm
         End If
     End Sub
 
-    Private Sub ShowFarmacia()
-        If ListBox1.Items.Count = 0 Or currentSelection < 0 Then Exit Sub
-        Dim farm As New Farmacia
-        farm = CType(ListBox1.Items.Item(currentSelection), Farmacia)
-        textNome.Text = farm.Nome
-        textEndereco.Text = farm.Endereco
-        textNIF.Text = farm.NIF_farmacia
-        textTelefone.Text = farm.Telefone
-        textAlvara.Text = farm.N_alvara
-    End Sub
-
-    Private Sub ShowArmazenistas()
-        If ListBox2.Items.Count = 0 Or currentSelection < 0 Then Exit Sub
-        Dim arm As New Armazenista
-        arm = CType(ListBox2.Items.Item(currentSelection), Armazenista)
-        txtArmNome.Text = arm.Nome
-        txtArmEndereço.Text = arm.Endereço
-        txtArmNIF.Text = arm.NIF_arm
-        txtArmTelefone.Text = arm.Telefone
-    End Sub
-
-
     Private Sub openingForm_Load(sender As Object, e As EventArgs) Handles Me.Load
         TestConnection()
         CN = New SqlConnection("data source=localhost;integrated security=true;initial catalog=Farmacias")
@@ -115,5 +93,39 @@ Public Class openingForm
         ShowArmazenistas()
     End Sub
 
+    Private Sub voltarArm_Click(sender As Object, e As EventArgs) Handles voltarArm.Click
+        openPanel.Show()
+        armPanel.Hide()
+        farmPanel.Hide()
+    End Sub
+
+    Private Sub voltarFarm_Click(sender As Object, e As EventArgs) Handles voltarFarm.Click
+        openPanel.Show()
+        armPanel.Hide()
+        farmPanel.Hide()
+    End Sub
+
+
+    ' Helper Functions
+    Private Sub ShowFarmacia()
+        If ListBox1.Items.Count = 0 Or currentSelection < 0 Then Exit Sub
+        Dim farm As New Farmacia
+        farm = CType(ListBox1.Items.Item(currentSelection), Farmacia)
+        textNome.Text = farm.Nome
+        textEndereco.Text = farm.Endereco
+        textNIF.Text = farm.NIF_farmacia
+        textTelefone.Text = farm.Telefone
+        textAlvara.Text = farm.N_alvara
+    End Sub
+
+    Private Sub ShowArmazenistas()
+        If ListBox2.Items.Count = 0 Or currentSelection < 0 Then Exit Sub
+        Dim arm As New Armazenista
+        arm = CType(ListBox2.Items.Item(currentSelection), Armazenista)
+        txtArmNome.Text = arm.Nome
+        txtArmEndereço.Text = arm.Endereço
+        txtArmNIF.Text = arm.NIF_arm
+        txtArmTelefone.Text = arm.Telefone
+    End Sub
 
 End Class

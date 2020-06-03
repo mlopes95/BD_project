@@ -24,6 +24,10 @@ Partial Class openingForm
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(openingForm))
         Me.farmPanel = New System.Windows.Forms.Panel()
+        Me.Button3 = New System.Windows.Forms.Button()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.voltarFarm = New System.Windows.Forms.Button()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -42,6 +46,10 @@ Partial Class openingForm
         Me.listFarmacia = New System.Windows.Forms.Button()
         Me.listArmazenistas = New System.Windows.Forms.Button()
         Me.armPanel = New System.Windows.Forms.Panel()
+        Me.Button4 = New System.Windows.Forms.Button()
+        Me.Button5 = New System.Windows.Forms.Button()
+        Me.Button6 = New System.Windows.Forms.Button()
+        Me.voltarArm = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
@@ -62,6 +70,10 @@ Partial Class openingForm
         '
         'farmPanel
         '
+        Me.farmPanel.Controls.Add(Me.Button3)
+        Me.farmPanel.Controls.Add(Me.Button2)
+        Me.farmPanel.Controls.Add(Me.Button1)
+        Me.farmPanel.Controls.Add(Me.voltarFarm)
         Me.farmPanel.Controls.Add(Me.Label6)
         Me.farmPanel.Controls.Add(Me.Label5)
         Me.farmPanel.Controls.Add(Me.Label4)
@@ -81,10 +93,46 @@ Partial Class openingForm
         Me.farmPanel.TabIndex = 21
         Me.farmPanel.Visible = False
         '
+        'Button3
+        '
+        Me.Button3.Location = New System.Drawing.Point(658, 325)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(130, 41)
+        Me.Button3.TabIndex = 31
+        Me.Button3.Text = "Remover"
+        Me.Button3.UseVisualStyleBackColor = True
+        '
+        'Button2
+        '
+        Me.Button2.Location = New System.Drawing.Point(453, 325)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(130, 41)
+        Me.Button2.TabIndex = 30
+        Me.Button2.Text = "Editar"
+        Me.Button2.UseVisualStyleBackColor = True
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(247, 325)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(130, 41)
+        Me.Button1.TabIndex = 29
+        Me.Button1.Text = "Adicionar"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'voltarFarm
+        '
+        Me.voltarFarm.Location = New System.Drawing.Point(722, 3)
+        Me.voltarFarm.Name = "voltarFarm"
+        Me.voltarFarm.Size = New System.Drawing.Size(75, 23)
+        Me.voltarFarm.TabIndex = 28
+        Me.voltarFarm.Text = "Voltar"
+        Me.voltarFarm.UseVisualStyleBackColor = True
+        '
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(559, 291)
+        Me.Label6.Location = New System.Drawing.Point(538, 253)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(49, 13)
         Me.Label6.TabIndex = 27
@@ -93,7 +141,7 @@ Partial Class openingForm
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(342, 291)
+        Me.Label5.Location = New System.Drawing.Point(321, 253)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(37, 13)
         Me.Label5.TabIndex = 26
@@ -102,7 +150,7 @@ Partial Class openingForm
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(559, 239)
+        Me.Label4.Location = New System.Drawing.Point(538, 201)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(24, 13)
         Me.Label4.TabIndex = 25
@@ -111,7 +159,7 @@ Partial Class openingForm
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(342, 239)
+        Me.Label3.Location = New System.Drawing.Point(321, 201)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(53, 13)
         Me.Label3.TabIndex = 24
@@ -120,7 +168,7 @@ Partial Class openingForm
         'Nome
         '
         Me.Nome.AutoSize = True
-        Me.Nome.Location = New System.Drawing.Point(342, 191)
+        Me.Nome.Location = New System.Drawing.Point(321, 153)
         Me.Nome.Name = "Nome"
         Me.Nome.Size = New System.Drawing.Size(35, 13)
         Me.Nome.TabIndex = 23
@@ -129,7 +177,7 @@ Partial Class openingForm
         'textTelefone
         '
         Me.textTelefone.BackColor = System.Drawing.SystemColors.Control
-        Me.textTelefone.Location = New System.Drawing.Point(562, 307)
+        Me.textTelefone.Location = New System.Drawing.Point(541, 269)
         Me.textTelefone.Name = "textTelefone"
         Me.textTelefone.Size = New System.Drawing.Size(173, 20)
         Me.textTelefone.TabIndex = 22
@@ -137,7 +185,7 @@ Partial Class openingForm
         'textAlvara
         '
         Me.textAlvara.BackColor = System.Drawing.SystemColors.Control
-        Me.textAlvara.Location = New System.Drawing.Point(345, 307)
+        Me.textAlvara.Location = New System.Drawing.Point(324, 269)
         Me.textAlvara.Name = "textAlvara"
         Me.textAlvara.Size = New System.Drawing.Size(174, 20)
         Me.textAlvara.TabIndex = 21
@@ -145,7 +193,7 @@ Partial Class openingForm
         'textNIF
         '
         Me.textNIF.BackColor = System.Drawing.SystemColors.Control
-        Me.textNIF.Location = New System.Drawing.Point(562, 255)
+        Me.textNIF.Location = New System.Drawing.Point(541, 217)
         Me.textNIF.Name = "textNIF"
         Me.textNIF.Size = New System.Drawing.Size(173, 20)
         Me.textNIF.TabIndex = 20
@@ -153,7 +201,7 @@ Partial Class openingForm
         'textEndereco
         '
         Me.textEndereco.BackColor = System.Drawing.SystemColors.Control
-        Me.textEndereco.Location = New System.Drawing.Point(345, 255)
+        Me.textEndereco.Location = New System.Drawing.Point(324, 217)
         Me.textEndereco.Name = "textEndereco"
         Me.textEndereco.Size = New System.Drawing.Size(174, 20)
         Me.textEndereco.TabIndex = 19
@@ -161,7 +209,7 @@ Partial Class openingForm
         'textNome
         '
         Me.textNome.BackColor = System.Drawing.SystemColors.Control
-        Me.textNome.Location = New System.Drawing.Point(345, 207)
+        Me.textNome.Location = New System.Drawing.Point(324, 169)
         Me.textNome.Name = "textNome"
         Me.textNome.Size = New System.Drawing.Size(174, 20)
         Me.textNome.TabIndex = 18
@@ -240,6 +288,10 @@ Partial Class openingForm
         '
         'armPanel
         '
+        Me.armPanel.Controls.Add(Me.Button4)
+        Me.armPanel.Controls.Add(Me.Button5)
+        Me.armPanel.Controls.Add(Me.Button6)
+        Me.armPanel.Controls.Add(Me.voltarArm)
         Me.armPanel.Controls.Add(Me.Label2)
         Me.armPanel.Controls.Add(Me.Label8)
         Me.armPanel.Controls.Add(Me.Label9)
@@ -256,6 +308,42 @@ Partial Class openingForm
         Me.armPanel.Size = New System.Drawing.Size(800, 450)
         Me.armPanel.TabIndex = 28
         Me.armPanel.Visible = False
+        '
+        'Button4
+        '
+        Me.Button4.Location = New System.Drawing.Point(658, 325)
+        Me.Button4.Name = "Button4"
+        Me.Button4.Size = New System.Drawing.Size(130, 41)
+        Me.Button4.TabIndex = 34
+        Me.Button4.Text = "Remover"
+        Me.Button4.UseVisualStyleBackColor = True
+        '
+        'Button5
+        '
+        Me.Button5.Location = New System.Drawing.Point(453, 325)
+        Me.Button5.Name = "Button5"
+        Me.Button5.Size = New System.Drawing.Size(130, 41)
+        Me.Button5.TabIndex = 33
+        Me.Button5.Text = "Editar"
+        Me.Button5.UseVisualStyleBackColor = True
+        '
+        'Button6
+        '
+        Me.Button6.Location = New System.Drawing.Point(247, 325)
+        Me.Button6.Name = "Button6"
+        Me.Button6.Size = New System.Drawing.Size(130, 41)
+        Me.Button6.TabIndex = 32
+        Me.Button6.Text = "Adicionar"
+        Me.Button6.UseVisualStyleBackColor = True
+        '
+        'voltarArm
+        '
+        Me.voltarArm.Location = New System.Drawing.Point(722, 3)
+        Me.voltarArm.Name = "voltarArm"
+        Me.voltarArm.Size = New System.Drawing.Size(75, 23)
+        Me.voltarArm.TabIndex = 28
+        Me.voltarArm.Text = "Voltar"
+        Me.voltarArm.UseVisualStyleBackColor = True
         '
         'Label2
         '
@@ -351,9 +439,9 @@ Partial Class openingForm
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.Controls.Add(Me.farmPanel)
         Me.Controls.Add(Me.armPanel)
         Me.Controls.Add(Me.openPanel)
-        Me.Controls.Add(Me.farmPanel)
         Me.Name = "openingForm"
         Me.Text = "Form1"
         Me.farmPanel.ResumeLayout(False)
@@ -398,4 +486,12 @@ Partial Class openingForm
     Friend WithEvents txtArmNome As TextBox
     Friend WithEvents PictureBox3 As PictureBox
     Friend WithEvents ListBox2 As ListBox
+    Friend WithEvents voltarArm As Button
+    Friend WithEvents voltarFarm As Button
+    Friend WithEvents Button3 As Button
+    Friend WithEvents Button2 As Button
+    Friend WithEvents Button1 As Button
+    Friend WithEvents Button4 As Button
+    Friend WithEvents Button5 As Button
+    Friend WithEvents Button6 As Button
 End Class
