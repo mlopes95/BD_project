@@ -1,9 +1,28 @@
 ﻿Imports System.Data.SqlClient
-
 Public Class openingForm
     Dim CN As SqlConnection
     Dim CMD As SqlCommand
     Dim currentSelection As Integer
+    Dim adding As Boolean
+
+    Private Sub TestConnectionToDB()
+        Dim CN As New SqlConnection("Data Source = tcp:mednat.ieeta.pt\SQLSERVER,8101;" &
+        "Initial Catalog = p7g6; uid = p7g6; password = 202207059598@Bd")
+        Try
+            CN.Open()
+            If CN.State = ConnectionState.Open Then
+                MsgBox("Successful connection to database " & CN.Database & " on the " & CN.DataSource &
+                " server", MsgBoxStyle.OkOnly, "Connection Test")
+            End If
+        Catch ex As Exception
+            MsgBox("FAILED TO OPEN CONNECTION TO DATABASE DUE TO THE FOLLOWING ERROR" & vbCrLf &
+            ex.Message, MsgBoxStyle.Critical, "Connection Test")
+        End Try
+        If CN.State = ConnectionState.Open Then
+            CN.Close()
+        End If
+    End Sub
+
 
     Private Sub TestConnection()
         Dim CN As New SqlConnection("Data Source = localhost; Integrated Security = true;" &
@@ -37,8 +56,70 @@ Public Class openingForm
         End If
     End Sub
 
+    Private Sub buttonAdd_Click(sender As Object, e As EventArgs) Handles buttonAdd.Click
+        ClearFields()
+        UnlockTextFields()
+        adding = True
+        ListBox1.Enabled = False
+        HideButtons()
+    End Sub
+
+    Private Sub buttonOk_Click(sender As Object, e As EventArgs) Handles buttonOk.Click
+        SaveFarmacia()
+        Dim idx As Integer = ListBox1.FindString(textNIF.Text)
+        ListBox1.SelectedIndex = idx
+        ListBox1.Enabled = True
+        ShowButtons()
+    End Sub
+
+    Private Sub buttonCancel_Click(sender As Object, e As EventArgs) Handles buttonCancel.Click
+        ListBox1.Enabled = True
+        If ListBox1.Items.Count > 0 Then
+            currentSelection = ListBox1.SelectedIndex
+            If currentSelection < 0 Then currentSelection = 0
+            ShowFarmacia()
+        Else
+            ClearFields()
+            LockTextFields()
+        End If
+        ShowButtons()
+    End Sub
+
+    Private Sub buttonEdit_Click(sender As Object, e As EventArgs) Handles buttonEdit.Click
+        currentSelection = ListBox1.SelectedIndex
+        If currentSelection < 0 Then
+            MsgBox("Please select a contact to edit")
+            Exit Sub
+        End If
+        UnlockTextFields()
+        textNIF.ReadOnly = True
+        adding = False
+        HideButtons()
+        ListBox1.Enabled = False
+    End Sub
+
+    Private Sub buttonRemove_Click(sender As Object, e As EventArgs) Handles buttonRemove.Click
+        If ListBox1.SelectedIndex > -1 Then
+            Try
+                RemoveFarmacia(CType(ListBox1.SelectedItem, Farmacia).NIF_farmacia)
+            Catch ex As Exception
+                MsgBox(ex.Message)
+                Exit Sub
+            End Try
+            ListBox1.Items.RemoveAt(ListBox1.SelectedIndex)
+            If currentSelection = ListBox1.Items.Count Then currentSelection = ListBox1.Items.Count - 1
+            If currentSelection = -1 Then
+                ClearFields()
+                MsgBox("There are no more contacts")
+            Else
+                ShowFarmacia()
+            End If
+        End If
+    End Sub
+
     Private Sub openingForm_Load(sender As Object, e As EventArgs) Handles Me.Load
         TestConnection()
+        ShowButtons()
         CN = New SqlConnection("data source=localhost;integrated security=true;initial catalog=Farmacias")
     End Sub
 
@@ -105,7 +186,6 @@ Public Class openingForm
         farmPanel.Hide()
     End Sub
 
-
     ' Helper Functions
     Private Sub ShowFarmacia()
         LockTextFields()
@@ -166,18 +246,19 @@ Public Class openingForm
         txtArmTelefone.Text = ""
     End Sub
 
-    Private Sub buttonAdd_Click(sender As Object, e As EventArgs) Handles buttonAdd.Click
-        ClearFields()
-        UnlockTextFields()
-        ListBox1.Enabled = False
+    Private Sub HideButtons()
+        buttonAdd.Visible = False
+        buttonEdit.Visible = False
+        buttonRemove.Visible = False
+        buttonOk.Visible = True
+        buttonCancel.Visible = True
     End Sub
-
-    Private Sub buttonOk_Click(sender As Object, e As EventArgs) Handles buttonOk.Click
-        SaveFarmacia()
-
-        Dim idx As Integer = ListBox1.FindString(textNIF.Text)
-        ListBox1.SelectedIndex = idx
-        ShowButtons()
+    Private Sub ShowButtons()
+        buttonAdd.Visible = True
+        buttonEdit.Visible = True
+        buttonRemove.Visible = True
+        buttonOk.Visible = False
+        buttonCancel.Visible = False
     End Sub
 
     Private Sub SaveFarmacia()
@@ -187,8 +268,13 @@ Public Class openingForm
         F.Telefone = textTelefone.Text
         F.NIF_farmacia = textNIF.Text
         F.N_alvara = textAlvara.Text
-
-        InsertFarmacia(F)
+        If adding Then
+            InsertFarmacia(F)
+            ListBox1.Items.Add(F)
+        Else
+            updateFarmacia(F)
+            ListBox1.Items(currentSelection) = F
+        End If
     End Sub
 
     Private Sub InsertFarmacia(ByVal F As Farmacia)
@@ -234,8 +320,66 @@ Public Class openingForm
         CN.Close()
     End Sub
 
+    Private Sub updateFarmacia(ByVal F As Farmacia)
+        Dim nome As New SqlParameter
+        Dim endereco As New SqlParameter
+        Dim telefone As New SqlParameter
+        Dim NIF_farmacia As New SqlParameter
+        Dim n_alvara As New SqlParameter
 
-    Private Sub ShowButtons()
+        nome.ParameterName = "@nome"
+        nome.SqlDbType = SqlDbType.VarChar
+        nome.Value = F.Nome
 
+        endereco.ParameterName = "@endereço"
+        endereco.SqlDbType = SqlDbType.VarChar
+        endereco.Value = F.Endereco
+
+        telefone.ParameterName = "@telefone"
+        telefone.SqlDbType = SqlDbType.Decimal
+        telefone.Value = F.Telefone
+
+        NIF_farmacia.ParameterName = "@NIF_farmacia"
+        NIF_farmacia.SqlDbType = SqlDbType.Decimal
+        NIF_farmacia.Value = F.NIF_farmacia
+
+        n_alvara.ParameterName = "@n_alvara"
+        n_alvara.SqlDbType = SqlDbType.Int
+        n_alvara.Value = F.N_alvara
+
+        CMD.Parameters.Clear()
+        CMD.Parameters.Add(nome)
+        CMD.Parameters.Add(endereco)
+        CMD.Parameters.Add(telefone)
+        CMD.Parameters.Add(NIF_farmacia)
+        CMD.Parameters.Add(n_alvara)
+        CMD.CommandText =
+                           "EXEC GestFarm.p_UpdateFarmacia @nome, @endereço, @telefone, @NIF_farmacia, @n_alvara"
+
+        CN.Open()
+
+        CMD.ExecuteNonQuery()
+
+        CN.Close()
+    End Sub
+
+    Private Sub RemoveFarmacia(ByVal NIF As String)
+        Dim NIF_farmacia As New SqlParameter
+        NIF_farmacia.ParameterName = "@NIF_farmacia"
+        NIF_farmacia.SqlDbType = SqlDbType.Decimal
+        NIF_farmacia.Value = NIF
+
+        CMD.Parameters.Clear()
+        CMD.Parameters.Add(NIF_farmacia)
+        CMD.CommandText = "EXEC GestFarm.p_DeleteFarmacia @NIF_farmacia "
+
+        CN.Open()
+        Try
+            CMD.ExecuteNonQuery()
+        Catch ex As Exception
+            Throw New Exception("Failed to delete contact in database. " & vbCrLf & "ERROR MESSAGE: " & vbCrLf & ex.Message)
+        Finally
+            CN.Close()
+        End Try
     End Sub
 End Class

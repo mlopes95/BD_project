@@ -24,6 +24,8 @@ Partial Class openingForm
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(openingForm))
         Me.farmPanel = New System.Windows.Forms.Panel()
+        Me.buttonCancel = New System.Windows.Forms.Button()
+        Me.buttonOk = New System.Windows.Forms.Button()
         Me.buttonRemove = New System.Windows.Forms.Button()
         Me.buttonEdit = New System.Windows.Forms.Button()
         Me.buttonAdd = New System.Windows.Forms.Button()
@@ -60,8 +62,6 @@ Partial Class openingForm
         Me.txtArmNome = New System.Windows.Forms.TextBox()
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
         Me.ListBox2 = New System.Windows.Forms.ListBox()
-        Me.buttonOk = New System.Windows.Forms.Button()
-        Me.buttonCancel = New System.Windows.Forms.Button()
         Me.farmPanel.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.openPanel.SuspendLayout()
@@ -96,6 +96,24 @@ Partial Class openingForm
         Me.farmPanel.Size = New System.Drawing.Size(800, 450)
         Me.farmPanel.TabIndex = 21
         Me.farmPanel.Visible = False
+        '
+        'buttonCancel
+        '
+        Me.buttonCancel.Location = New System.Drawing.Point(562, 325)
+        Me.buttonCancel.Name = "buttonCancel"
+        Me.buttonCancel.Size = New System.Drawing.Size(130, 41)
+        Me.buttonCancel.TabIndex = 33
+        Me.buttonCancel.Text = "Cancelar"
+        Me.buttonCancel.UseVisualStyleBackColor = True
+        '
+        'buttonOk
+        '
+        Me.buttonOk.Location = New System.Drawing.Point(357, 325)
+        Me.buttonOk.Name = "buttonOk"
+        Me.buttonOk.Size = New System.Drawing.Size(127, 41)
+        Me.buttonOk.TabIndex = 32
+        Me.buttonOk.Text = "Ok"
+        Me.buttonOk.UseVisualStyleBackColor = True
         '
         'buttonRemove
         '
@@ -437,24 +455,6 @@ Partial Class openingForm
         Me.ListBox2.Name = "ListBox2"
         Me.ListBox2.Size = New System.Drawing.Size(226, 455)
         Me.ListBox2.TabIndex = 1
-        '
-        'buttonOk
-        '
-        Me.buttonOk.Location = New System.Drawing.Point(357, 325)
-        Me.buttonOk.Name = "buttonOk"
-        Me.buttonOk.Size = New System.Drawing.Size(127, 41)
-        Me.buttonOk.TabIndex = 32
-        Me.buttonOk.Text = "Ok"
-        Me.buttonOk.UseVisualStyleBackColor = True
-        '
-        'buttonCancel
-        '
-        Me.buttonCancel.Location = New System.Drawing.Point(562, 325)
-        Me.buttonCancel.Name = "buttonCancel"
-        Me.buttonCancel.Size = New System.Drawing.Size(130, 41)
-        Me.buttonCancel.TabIndex = 33
-        Me.buttonCancel.Text = "Cancelar"
-        Me.buttonCancel.UseVisualStyleBackColor = True
         '
         'openingForm
         '
