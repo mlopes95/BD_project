@@ -42,20 +42,14 @@ Public Class openingForm
         End If
     End Sub
 
+    ''BUTTONS AND LISTBOXES----------------------------------------------------------------------------------------------------------
+    '' Farmácias
     Private Sub ListBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox1.SelectedIndexChanged
         If ListBox1.SelectedIndex > -1 Then
             currentSelection = ListBox1.SelectedIndex
             ShowFarmacia()
         End If
     End Sub
-
-    Private Sub ListBox2_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox2.SelectedIndexChanged
-        If ListBox2.SelectedIndex > -1 Then
-            currentSelection = ListBox2.SelectedIndex
-            ShowArmazenistas()
-        End If
-    End Sub
-
     Private Sub buttonAdd_Click(sender As Object, e As EventArgs) Handles buttonAdd.Click
         ClearFields()
         UnlockTextFields()
@@ -63,28 +57,6 @@ Public Class openingForm
         ListBox1.Enabled = False
         HideButtons()
     End Sub
-
-    Private Sub buttonOk_Click(sender As Object, e As EventArgs) Handles buttonOk.Click
-        SaveFarmacia()
-        Dim idx As Integer = ListBox1.FindString(textNIF.Text)
-        ListBox1.SelectedIndex = idx
-        ListBox1.Enabled = True
-        ShowButtons()
-    End Sub
-
-    Private Sub buttonCancel_Click(sender As Object, e As EventArgs) Handles buttonCancel.Click
-        ListBox1.Enabled = True
-        If ListBox1.Items.Count > 0 Then
-            currentSelection = ListBox1.SelectedIndex
-            If currentSelection < 0 Then currentSelection = 0
-            ShowFarmacia()
-        Else
-            ClearFields()
-            LockTextFields()
-        End If
-        ShowButtons()
-    End Sub
-
     Private Sub buttonEdit_Click(sender As Object, e As EventArgs) Handles buttonEdit.Click
         currentSelection = ListBox1.SelectedIndex
         If currentSelection < 0 Then
@@ -117,6 +89,82 @@ Public Class openingForm
         End If
     End Sub
 
+    Private Sub buttonOk_Click(sender As Object, e As EventArgs) Handles buttonOk.Click
+        SaveFarmacia()
+        Dim idx As Integer = ListBox1.FindString(textNIF.Text)
+        ListBox1.SelectedIndex = idx
+        ListBox1.Enabled = True
+        ShowButtons()
+    End Sub
+
+    Private Sub buttonCancel_Click(sender As Object, e As EventArgs) Handles buttonCancel.Click
+        ListBox1.Enabled = True
+        If ListBox1.Items.Count > 0 Then
+            currentSelection = ListBox1.SelectedIndex
+            If currentSelection < 0 Then currentSelection = 0
+            ShowFarmacia()
+        Else
+            ClearFields()
+            LockTextFields()
+        End If
+        ShowButtons()
+    End Sub
+
+    ''Armazenista
+    Private Sub ListBox2_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox2.SelectedIndexChanged
+        If ListBox2.SelectedIndex > -1 Then
+            currentSelection = ListBox2.SelectedIndex
+            ShowArmazenistas()
+        End If
+    End Sub
+    Private Sub buttonAddArm_Click(sender As Object, e As EventArgs) Handles buttonAddArm.Click
+        ClearFields()
+        UnlockTextFields()
+        adding = True
+        ListBox2.Enabled = False
+        HideButtonsArm()
+    End Sub
+
+    Private Sub buttonEditArm_Click(sender As Object, e As EventArgs) Handles buttonEditArm.Click
+        currentSelection = ListBox2.SelectedIndex
+        If currentSelection < 0 Then
+            MsgBox("Por favor selecione um armazenista para editar")
+            Exit Sub
+        End If
+        UnlockTextFields()
+        txtArmNIF.ReadOnly = True
+        adding = False
+        HideButtonsArm()
+        ListBox2.Enabled = False
+    End Sub
+    Private Sub buttonRemoveArm_Click(sender As Object, e As EventArgs) Handles buttonRemoveArm.Click
+        If ListBox2.SelectedIndex > -1 Then
+            Try
+                RemoveArmazenista(CType(ListBox2.SelectedItem, Armazenista).NIF_arm)
+            Catch ex As Exception
+                MsgBox(ex.Message)
+                Exit Sub
+            End Try
+            ListBox2.Items.RemoveAt(ListBox2.SelectedIndex)
+            If currentSelection = ListBox2.Items.Count Then currentSelection = ListBox2.Items.Count - 1
+            If currentSelection = -1 Then
+                ClearFields()
+                MsgBox("Não há mais armazenistas")
+            Else
+                ShowArmazenistas()
+            End If
+        End If
+    End Sub
+
+    Private Sub buttonOkArm_Click(sender As Object, e As EventArgs) Handles buttonOkArm.Click
+        SaveArmazenista()
+        Dim idx As Integer = ListBox2.FindString(txtArmNIF.Text)
+        ListBox2.SelectedIndex = idx
+        ListBox2.Enabled = True
+        ShowButtonsArm()
+    End Sub
+
+    '' ON LOAD & ON CLICK-----------------------------------------------------------------------------------------------
     Private Sub openingForm_Load(sender As Object, e As EventArgs) Handles Me.Load
         TestConnection()
         ShowButtons()
@@ -127,6 +175,7 @@ Public Class openingForm
         openPanel.Hide()
         armPanel.Hide()
         farmPanel.Show()
+        ShowButtons()
         CMD = New SqlCommand
         CMD.Connection = CN
 
@@ -153,6 +202,7 @@ Public Class openingForm
         openPanel.Hide()
         armPanel.Show()
         farmPanel.Hide()
+        ShowButtonsArm()
         CMD = New SqlCommand
         CMD.Connection = CN
 
@@ -186,7 +236,8 @@ Public Class openingForm
         farmPanel.Hide()
     End Sub
 
-    ' Helper Functions
+    ' HELPER FUNCTIONS-----------------------------------------------------------------------------------------------------------
+    ' FARMÁCIA
     Private Sub ShowFarmacia()
         LockTextFields()
         If ListBox1.Items.Count = 0 Or currentSelection < 0 Then Exit Sub
@@ -197,17 +248,6 @@ Public Class openingForm
         textNIF.Text = farm.NIF_farmacia
         textTelefone.Text = farm.Telefone
         textAlvara.Text = farm.N_alvara
-    End Sub
-
-    Private Sub ShowArmazenistas()
-        LockTextFields()
-        If ListBox2.Items.Count = 0 Or currentSelection < 0 Then Exit Sub
-        Dim arm As New Armazenista
-        arm = CType(ListBox2.Items.Item(currentSelection), Armazenista)
-        txtArmNome.Text = arm.Nome
-        txtArmEndereço.Text = arm.Endereço
-        txtArmNIF.Text = arm.NIF_arm
-        txtArmTelefone.Text = arm.Telefone
     End Sub
 
     Private Sub LockTextFields()
@@ -277,6 +317,50 @@ Public Class openingForm
         End If
     End Sub
 
+    ''ARMAZENISTA
+    Private Sub ShowArmazenistas()
+        LockTextFields()
+        If ListBox2.Items.Count = 0 Or currentSelection < 0 Then Exit Sub
+        Dim arm As New Armazenista
+        arm = CType(ListBox2.Items.Item(currentSelection), Armazenista)
+        txtArmNome.Text = arm.Nome
+        txtArmEndereço.Text = arm.Endereço
+        txtArmNIF.Text = arm.NIF_arm
+        txtArmTelefone.Text = arm.Telefone
+    End Sub
+    Private Sub HideButtonsArm()
+        buttonAddArm.Visible = False
+        buttonEditArm.Visible = False
+        buttonRemoveArm.Visible = False
+        buttonOkArm.Visible = True
+        buttonCancelArm.Visible = True
+    End Sub
+    Private Sub ShowButtonsArm()
+        buttonAddArm.Visible = True
+        buttonEditArm.Visible = True
+        buttonRemoveArm.Visible = True
+        buttonOkArm.Visible = False
+        buttonCancelArm.Visible = False
+    End Sub
+
+    Private Sub SaveArmazenista()
+        Dim A As New Armazenista
+        A.Nome = txtArmNome.Text
+        A.Endereço = txtArmEndereço.Text
+        A.Telefone = txtArmTelefone.Text
+        A.NIF_arm = txtArmNIF.Text
+        If adding Then
+            InsertArmazenista(A)
+            ListBox2.Items.Add(A)
+        Else
+            updateArmazenista(A)
+            ListBox2.Items(currentSelection) = A
+        End If
+    End Sub
+
+
+    '' INSERTS // UPDATES // DELETES-------------------------------------------------------------------------------------------------------
+    ''FARMACIAS
     Private Sub InsertFarmacia(ByVal F As Farmacia)
         Dim nome As New SqlParameter
         Dim endereco As New SqlParameter
@@ -372,6 +456,102 @@ Public Class openingForm
         CMD.Parameters.Clear()
         CMD.Parameters.Add(NIF_farmacia)
         CMD.CommandText = "EXEC GestFarm.p_DeleteFarmacia @NIF_farmacia "
+
+        CN.Open()
+        Try
+            CMD.ExecuteNonQuery()
+        Catch ex As Exception
+            Throw New Exception("Failed to delete contact in database. " & vbCrLf & "ERROR MESSAGE: " & vbCrLf & ex.Message)
+        Finally
+            CN.Close()
+        End Try
+    End Sub
+
+    ''ARMAZENISTAS
+    ''FARMACIAS
+    Private Sub InsertArmazenista(ByVal A As Armazenista)
+        Dim nome As New SqlParameter
+        Dim endereco As New SqlParameter
+        Dim telefone As New SqlParameter
+        Dim NIF_arm As New SqlParameter
+
+        nome.ParameterName = "@nome"
+        nome.SqlDbType = SqlDbType.VarChar
+        nome.Value = A.Nome
+
+        endereco.ParameterName = "@endereço"
+        endereco.SqlDbType = SqlDbType.VarChar
+        endereco.Value = A.Endereço
+
+        telefone.ParameterName = "@telefone"
+        telefone.SqlDbType = SqlDbType.Decimal
+        telefone.Value = A.Telefone
+
+        NIF_arm.ParameterName = "@NIF_arm"
+        NIF_arm.SqlDbType = SqlDbType.Decimal
+        NIF_arm.Value = A.NIF_arm
+
+        CMD.Parameters.Clear()
+        CMD.Parameters.Add(nome)
+        CMD.Parameters.Add(endereco)
+        CMD.Parameters.Add(telefone)
+        CMD.Parameters.Add(NIF_arm)
+        CMD.CommandText =
+                           "EXEC GestFarm.p_InsertArmazenista @nome, @NIF_arm, @telefone, @endereço"
+
+        CN.Open()
+
+        CMD.ExecuteNonQuery()
+
+        CN.Close()
+    End Sub
+
+    Private Sub updateArmazenista(ByVal A As Armazenista)
+        Dim nome As New SqlParameter
+        Dim endereco As New SqlParameter
+        Dim telefone As New SqlParameter
+        Dim NIF_arm As New SqlParameter
+
+        nome.ParameterName = "@nome"
+        nome.SqlDbType = SqlDbType.VarChar
+        nome.Value = A.Nome
+
+        endereco.ParameterName = "@endereço"
+        endereco.SqlDbType = SqlDbType.VarChar
+        endereco.Value = A.Endereço
+
+        telefone.ParameterName = "@telefone"
+        telefone.SqlDbType = SqlDbType.Decimal
+        telefone.Value = A.Telefone
+
+        NIF_arm.ParameterName = "@NIF_arm"
+        NIF_arm.SqlDbType = SqlDbType.Decimal
+        NIF_arm.Value = A.NIF_arm
+
+        CMD.Parameters.Clear()
+        CMD.Parameters.Add(nome)
+        CMD.Parameters.Add(endereco)
+        CMD.Parameters.Add(telefone)
+        CMD.Parameters.Add(NIF_arm)
+        CMD.CommandText =
+                           "EXEC GestFarm.p_UpdateArmazenista @nome, @NIF_arm, @telefone, @endereço"
+
+        CN.Open()
+
+        CMD.ExecuteNonQuery()
+
+        CN.Close()
+    End Sub
+
+    Private Sub RemoveArmazenista(ByVal NIF As String)
+        Dim NIF_farmacia As New SqlParameter
+        NIF_farmacia.ParameterName = "@NIF_arm"
+        NIF_farmacia.SqlDbType = SqlDbType.Decimal
+        NIF_farmacia.Value = NIF
+
+        CMD.Parameters.Clear()
+        CMD.Parameters.Add(NIF_farmacia)
+        CMD.CommandText = "EXEC GestFarm.p_DeleteArmazenista @NIF_arm "
 
         CN.Open()
         Try

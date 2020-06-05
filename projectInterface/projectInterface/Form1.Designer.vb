@@ -48,9 +48,11 @@ Partial Class openingForm
         Me.listFarmacia = New System.Windows.Forms.Button()
         Me.listArmazenistas = New System.Windows.Forms.Button()
         Me.armPanel = New System.Windows.Forms.Panel()
-        Me.Button4 = New System.Windows.Forms.Button()
-        Me.Button5 = New System.Windows.Forms.Button()
-        Me.Button6 = New System.Windows.Forms.Button()
+        Me.buttonCancelArm = New System.Windows.Forms.Button()
+        Me.buttonOkArm = New System.Windows.Forms.Button()
+        Me.buttonRemoveArm = New System.Windows.Forms.Button()
+        Me.buttonEditArm = New System.Windows.Forms.Button()
+        Me.buttonAddArm = New System.Windows.Forms.Button()
         Me.voltarArm = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
@@ -310,9 +312,11 @@ Partial Class openingForm
         '
         'armPanel
         '
-        Me.armPanel.Controls.Add(Me.Button4)
-        Me.armPanel.Controls.Add(Me.Button5)
-        Me.armPanel.Controls.Add(Me.Button6)
+        Me.armPanel.Controls.Add(Me.buttonCancelArm)
+        Me.armPanel.Controls.Add(Me.buttonOkArm)
+        Me.armPanel.Controls.Add(Me.buttonRemoveArm)
+        Me.armPanel.Controls.Add(Me.buttonEditArm)
+        Me.armPanel.Controls.Add(Me.buttonAddArm)
         Me.armPanel.Controls.Add(Me.voltarArm)
         Me.armPanel.Controls.Add(Me.Label2)
         Me.armPanel.Controls.Add(Me.Label8)
@@ -331,32 +335,50 @@ Partial Class openingForm
         Me.armPanel.TabIndex = 28
         Me.armPanel.Visible = False
         '
-        'Button4
+        'buttonCancelArm
         '
-        Me.Button4.Location = New System.Drawing.Point(658, 325)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(130, 41)
-        Me.Button4.TabIndex = 34
-        Me.Button4.Text = "Remover"
-        Me.Button4.UseVisualStyleBackColor = True
+        Me.buttonCancelArm.Location = New System.Drawing.Point(562, 325)
+        Me.buttonCancelArm.Name = "buttonCancelArm"
+        Me.buttonCancelArm.Size = New System.Drawing.Size(130, 41)
+        Me.buttonCancelArm.TabIndex = 36
+        Me.buttonCancelArm.Text = "Cancelar"
+        Me.buttonCancelArm.UseVisualStyleBackColor = True
         '
-        'Button5
+        'buttonOkArm
         '
-        Me.Button5.Location = New System.Drawing.Point(453, 325)
-        Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(130, 41)
-        Me.Button5.TabIndex = 33
-        Me.Button5.Text = "Editar"
-        Me.Button5.UseVisualStyleBackColor = True
+        Me.buttonOkArm.Location = New System.Drawing.Point(357, 325)
+        Me.buttonOkArm.Name = "buttonOkArm"
+        Me.buttonOkArm.Size = New System.Drawing.Size(127, 41)
+        Me.buttonOkArm.TabIndex = 35
+        Me.buttonOkArm.Text = "Ok"
+        Me.buttonOkArm.UseVisualStyleBackColor = True
         '
-        'Button6
+        'buttonRemoveArm
         '
-        Me.Button6.Location = New System.Drawing.Point(247, 325)
-        Me.Button6.Name = "Button6"
-        Me.Button6.Size = New System.Drawing.Size(130, 41)
-        Me.Button6.TabIndex = 32
-        Me.Button6.Text = "Adicionar"
-        Me.Button6.UseVisualStyleBackColor = True
+        Me.buttonRemoveArm.Location = New System.Drawing.Point(658, 325)
+        Me.buttonRemoveArm.Name = "buttonRemoveArm"
+        Me.buttonRemoveArm.Size = New System.Drawing.Size(130, 41)
+        Me.buttonRemoveArm.TabIndex = 34
+        Me.buttonRemoveArm.Text = "Remover"
+        Me.buttonRemoveArm.UseVisualStyleBackColor = True
+        '
+        'buttonEditArm
+        '
+        Me.buttonEditArm.Location = New System.Drawing.Point(453, 325)
+        Me.buttonEditArm.Name = "buttonEditArm"
+        Me.buttonEditArm.Size = New System.Drawing.Size(130, 41)
+        Me.buttonEditArm.TabIndex = 33
+        Me.buttonEditArm.Text = "Editar"
+        Me.buttonEditArm.UseVisualStyleBackColor = True
+        '
+        'buttonAddArm
+        '
+        Me.buttonAddArm.Location = New System.Drawing.Point(247, 325)
+        Me.buttonAddArm.Name = "buttonAddArm"
+        Me.buttonAddArm.Size = New System.Drawing.Size(130, 41)
+        Me.buttonAddArm.TabIndex = 32
+        Me.buttonAddArm.Text = "Adicionar"
+        Me.buttonAddArm.UseVisualStyleBackColor = True
         '
         'voltarArm
         '
@@ -461,9 +483,9 @@ Partial Class openingForm
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
-        Me.Controls.Add(Me.farmPanel)
-        Me.Controls.Add(Me.armPanel)
         Me.Controls.Add(Me.openPanel)
+        Me.Controls.Add(Me.armPanel)
+        Me.Controls.Add(Me.farmPanel)
         Me.Name = "openingForm"
         Me.Text = "Form1"
         Me.farmPanel.ResumeLayout(False)
@@ -513,9 +535,11 @@ Partial Class openingForm
     Friend WithEvents buttonRemove As Button
     Friend WithEvents buttonEdit As Button
     Friend WithEvents buttonAdd As Button
-    Friend WithEvents Button4 As Button
-    Friend WithEvents Button5 As Button
-    Friend WithEvents Button6 As Button
+    Friend WithEvents buttonRemoveArm As Button
+    Friend WithEvents buttonEditArm As Button
+    Friend WithEvents buttonAddArm As Button
     Friend WithEvents buttonCancel As Button
     Friend WithEvents buttonOk As Button
+    Friend WithEvents buttonOkArm As Button
+    Friend WithEvents buttonCancelArm As Button
 End Class
