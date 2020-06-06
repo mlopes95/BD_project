@@ -164,7 +164,7 @@ Public Class openingForm
         ShowButtonsArm()
     End Sub
 
-    '' ON LOAD & ON CLICK-----------------------------------------------------------------------------------------------
+    '' ON LOAD & LISTS-----------------------------------------------------------------------------------------------
     Private Sub openingForm_Load(sender As Object, e As EventArgs) Handles Me.Load
         TestConnection()
         ShowButtons()
@@ -175,6 +175,8 @@ Public Class openingForm
         openPanel.Hide()
         armPanel.Hide()
         farmPanel.Show()
+        listForn.Hide()
+        clientePanel.Hide()
         ShowButtons()
         CMD = New SqlCommand
         CMD.Connection = CN
@@ -195,6 +197,7 @@ Public Class openingForm
         End While
         CN.Close()
         currentSelection = 0
+        ListBox1.SelectedIndex = currentSelection
         ShowFarmacia()
     End Sub
 
@@ -202,6 +205,8 @@ Public Class openingForm
         openPanel.Hide()
         armPanel.Show()
         farmPanel.Hide()
+        listForn.Hide()
+        clientePanel.Hide()
         ShowButtonsArm()
         CMD = New SqlCommand
         CMD.Connection = CN
@@ -221,19 +226,130 @@ Public Class openingForm
         End While
         CN.Close()
         currentSelection = 0
+        ListBox2.SelectedIndex = currentSelection
         ShowArmazenistas()
     End Sub
 
-    Private Sub voltarArm_Click(sender As Object, e As EventArgs) Handles voltarArm.Click
-        openPanel.Show()
+    Private Sub listFornecedores_Click(sender As Object, e As EventArgs) Handles listFornecedores.Click
+        openPanel.Hide()
         armPanel.Hide()
         farmPanel.Hide()
+        listForn.Show()
+        clientePanel.Hide()
+        ShowButtons()
+        CMD = New SqlCommand
+        CMD.Connection = CN
+
+
+        Dim nif As New SqlParameter
+
+        nif.ParameterName = "@nif"
+        nif.SqlDbType = SqlDbType.Decimal
+        nif.Value = textNIF.Text
+
+        CMD.Parameters.Clear()
+        CMD.Parameters.Add(nif)
+
+        CMD.CommandText = "SELECT * FROM GestFarm.lista_fornecedores (@nif)"
+
+        CN.Open()
+        Dim RDR As SqlDataReader
+        RDR = CMD.ExecuteReader
+        ListBox3.Items.Clear()
+        While RDR.Read
+            Dim LF As New list_fornecedores
+            LF.Nome_farm = RDR.Item("Farmacia")
+            LF.Nif__farm = Convert.ToString(IIf(RDR.IsDBNull(RDR.GetOrdinal("NIF_farmacia")), "", RDR.Item("NIF_farmacia")))
+            LF.Nome_forn = RDR.Item("Fornecedor")
+            LF.Nif_forn = Convert.ToString(IIf(RDR.IsDBNull(RDR.GetOrdinal("NIF_arm")), "", RDR.Item("NIF_arm")))
+            ListBox3.Items.Add(LF)
+        End While
+        CN.Close()
+        currentSelection = 0
+        ListBox3.SelectedIndex = currentSelection
+        ShowLF()
+    End Sub
+
+    Private Sub listClientes_Click(sender As Object, e As EventArgs) Handles listClientes.Click
+        openPanel.Hide()
+        armPanel.Hide()
+        farmPanel.Hide()
+        listForn.Hide()
+        clientePanel.Show()
+        ShowButtons()
+        CMD = New SqlCommand
+        CMD.Connection = CN
+
+
+        Dim nif As New SqlParameter
+
+        nif.ParameterName = "@nif"
+        nif.SqlDbType = SqlDbType.Decimal
+        nif.Value = textNIF.Text
+
+        CMD.Parameters.Clear()
+        CMD.Parameters.Add(nif)
+
+        CMD.CommandText = "SELECT * FROM GestFarm.clientes_farmacia (@nif)"
+
+        CN.Open()
+        Dim RDR As SqlDataReader
+        RDR = CMD.ExecuteReader
+        ListBox3.Items.Clear()
+        While RDR.Read
+            Dim LC As New list_clientes
+            LC.Nome_farm = RDR.Item("nome_farmacia")
+            LC.NIF_farm = Convert.ToString(IIf(RDR.IsDBNull(RDR.GetOrdinal("NIF_farmacia")), "", RDR.Item("NIF_farmacia")))
+            LC.Nome_cliente = RDR.Item("nome_cliente")
+            LC.NIF_cliente = Convert.ToString(IIf(RDR.IsDBNull(RDR.GetOrdinal("nif_cliente")), "", RDR.Item("nif_cliente")))
+            LC.Contacto_cliente = RDR.Item("contacto")
+            ListBox4.Items.Add(LC)
+        End While
+        CN.Close()
+        currentSelection = 0
+        ListBox4.SelectedIndex = currentSelection
+        ShowCliente()
+    End Sub
+    Private Sub buttonListFuncionarios_Click(sender As Object, e As EventArgs) Handles buttonListFuncionarios.Click
+
+    End Sub
+
+    Private Sub orderHistory_Click(sender As Object, e As EventArgs) Handles orderHistory.Click
+
+    End Sub
+
+    Private Sub buttonStockFarm_Click(sender As Object, e As EventArgs) Handles buttonStockFarm.Click
+
     End Sub
 
     Private Sub voltarFarm_Click(sender As Object, e As EventArgs) Handles voltarFarm.Click
         openPanel.Show()
         armPanel.Hide()
         farmPanel.Hide()
+        listForn.Hide()
+        clientePanel.Hide()
+    End Sub
+    Private Sub voltarArm_Click(sender As Object, e As EventArgs) Handles voltarArm.Click
+        openPanel.Show()
+        armPanel.Hide()
+        farmPanel.Hide()
+        listForn.Hide()
+        clientePanel.Hide()
+    End Sub
+    Private Sub voltarListForn_Click(sender As Object, e As EventArgs) Handles voltarListForn.Click
+        openPanel.Hide()
+        armPanel.Hide()
+        farmPanel.Show()
+        listForn.Hide()
+        clientePanel.Hide()
+    End Sub
+
+    Private Sub voltarCliente_Click(sender As Object, e As EventArgs) Handles voltarCliente.Click
+        openPanel.Hide()
+        armPanel.Hide()
+        farmPanel.Show()
+        listForn.Hide()
+        clientePanel.Hide()
     End Sub
 
     ' HELPER FUNCTIONS-----------------------------------------------------------------------------------------------------------
@@ -260,6 +376,15 @@ Public Class openingForm
         txtArmEndereço.ReadOnly = True
         txtArmNIF.ReadOnly = True
         txtArmTelefone.ReadOnly = True
+        txtFarm.ReadOnly = True
+        txtNIFfarm.ReadOnly = True
+        txtForn.ReadOnly = True
+        txtNIFForn.ReadOnly = True
+        txtCFarm.ReadOnly = True
+        txtCNIFfarm.ReadOnly = True
+        txtNcliente.ReadOnly = True
+        txtNIFcliente.ReadOnly = True
+        txtContacto.ReadOnly = True
     End Sub
 
     Private Sub UnlockTextFields()
@@ -272,6 +397,15 @@ Public Class openingForm
         txtArmEndereço.ReadOnly = False
         txtArmNIF.ReadOnly = False
         txtArmTelefone.ReadOnly = False
+        txtFarm.ReadOnly = False
+        txtNIFfarm.ReadOnly = False
+        txtForn.ReadOnly = False
+        txtNIFForn.ReadOnly = False
+        txtCFarm.ReadOnly = False
+        txtCNIFfarm.ReadOnly = False
+        txtNcliente.ReadOnly = False
+        txtNIFcliente.ReadOnly = False
+        txtContacto.ReadOnly = False
     End Sub
 
     Private Sub ClearFields()
@@ -284,6 +418,15 @@ Public Class openingForm
         txtArmEndereço.Text = ""
         txtArmNIF.Text = ""
         txtArmTelefone.Text = ""
+        txtFarm.Text = ""
+        txtNIFfarm.Text = ""
+        txtForn.Text = ""
+        txtNIFForn.Text = ""
+        txtCFarm.Text = ""
+        txtCNIFfarm.Text = ""
+        txtNcliente.Text = ""
+        txtNIFcliente.Text = ""
+        txtContacto.Text = ""
     End Sub
 
     Private Sub HideButtons()
@@ -356,6 +499,39 @@ Public Class openingForm
             updateArmazenista(A)
             ListBox2.Items(currentSelection) = A
         End If
+    End Sub
+
+    ''LISTA DE FORNECEDORES
+    Private Sub ListBox3_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox3.SelectedIndexChanged
+        currentSelection = ListBox3.SelectedIndex
+        ShowLF()
+    End Sub
+    Private Sub ShowLF()
+        LockTextFields()
+        If ListBox3.Items.Count = 0 Or currentSelection < 0 Then Exit Sub
+        Dim LF As New list_fornecedores
+        LF = CType(ListBox3.Items.Item(currentSelection), list_fornecedores)
+        txtFarm.Text = LF.Nome_farm
+        txtNIFfarm.Text = LF.Nif__farm
+        txtForn.Text = LF.Nome_forn
+        txtNIFForn.Text = LF.Nif_forn
+    End Sub
+
+    ''CLIENTES
+    Private Sub ListBox4_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox4.SelectedIndexChanged
+        currentSelection = ListBox4.SelectedIndex
+        ShowCliente()
+    End Sub
+    Private Sub ShowCliente()
+        LockTextFields()
+        If ListBox4.Items.Count = 0 Or currentSelection < 0 Then Exit Sub
+        Dim LC As New list_clientes
+        LC = CType(ListBox4.Items.Item(currentSelection), list_clientes)
+        txtCFarm.Text = LC.Nome_farm
+        txtCNIFfarm.Text = LC.NIF_farm
+        txtNcliente.Text = LC.Nome_cliente
+        txtNIFcliente.Text = LC.NIF_cliente
+        txtContacto.Text = LC.Contacto_cliente
     End Sub
 
 
@@ -468,7 +644,6 @@ Public Class openingForm
     End Sub
 
     ''ARMAZENISTAS
-    ''FARMACIAS
     Private Sub InsertArmazenista(ByVal A As Armazenista)
         Dim nome As New SqlParameter
         Dim endereco As New SqlParameter
