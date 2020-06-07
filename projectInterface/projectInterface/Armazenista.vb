@@ -10,6 +10,10 @@
             Return _nome
         End Get
         Set(value As String)
+            If value Is Nothing Or value = "" Then
+                Throw New Exception("É necessário preencher o campo nome")
+                Exit Property
+            End If
             _nome = value
         End Set
     End Property
@@ -19,6 +23,10 @@
             Return _endereço
         End Get
         Set(value As String)
+            If value Is Nothing Or value = "" Then
+                Throw New Exception("É necessário preencher o campo endereço")
+                Exit Property
+            End If
             _endereço = value
         End Set
     End Property
@@ -28,6 +36,10 @@
             Return _telefone
         End Get
         Set(value As String)
+            If value Is Nothing Or value = "" Then
+                Throw New Exception("É necessário preencher o campo telefone")
+                Exit Property
+            End If
             _telefone = value
         End Set
     End Property
@@ -37,6 +49,10 @@
             Return _NIF_arm
         End Get
         Set(value As String)
+            If value Is Nothing Or value = "" Then
+                Throw New Exception("É necessário preencher o campo NIF")
+                Exit Property
+            End If
             _NIF_arm = value
         End Set
     End Property

@@ -43,7 +43,7 @@ Public Class openingForm
     Private Sub buttonEdit_Click(sender As Object, e As EventArgs) Handles buttonEdit.Click
         currentSelection = ListBox1.SelectedIndex
         If currentSelection < 0 Then
-            MsgBox("Please select a contact to edit")
+            MsgBox("Por favor selecione uma farmácia a editar")
             Exit Sub
         End If
         UnlockTextFields()
@@ -65,7 +65,7 @@ Public Class openingForm
             If currentSelection = ListBox1.Items.Count Then currentSelection = ListBox1.Items.Count - 1
             If currentSelection = -1 Then
                 ClearFields()
-                MsgBox("There are no more contacts")
+                MsgBox("Não há mais farmácias")
             Else
                 ShowFarmacia()
             End If
@@ -888,21 +888,27 @@ Public Class openingForm
         buttonCancel.Visible = False
     End Sub
 
-    Private Sub SaveFarmacia()
+    Private Function SaveFarmacia() As Boolean
         Dim F As New Farmacia
-        F.Nome = textNome.Text
-        F.Endereco = textEndereco.Text
-        F.Telefone = textTelefone.Text
-        F.NIF_farmacia = textNIF.Text
-        F.N_alvara = textAlvara.Text
+        Try
+            F.Nome = textNome.Text
+            F.Endereco = textEndereco.Text
+            F.Telefone = textTelefone.Text
+            F.NIF_farmacia = textNIF.Text
+            F.N_alvara = textAlvara.Text
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            Return False
+        End Try
         If adding Then
-            InsertFarmacia(F)
-            ListBox1.Items.Add(F)
-        Else
-            updateFarmacia(F)
-            ListBox1.Items(currentSelection) = F
-        End If
-    End Sub
+                InsertFarmacia(F)
+                ListBox1.Items.Add(F)
+            Else
+                updateFarmacia(F)
+                ListBox1.Items(currentSelection) = F
+            End If
+            Return True
+    End Function
 
     ''ARMAZENISTA
     Private Sub ShowArmazenistas()
@@ -930,12 +936,17 @@ Public Class openingForm
         buttonCancelArm.Visible = False
     End Sub
 
-    Private Sub SaveArmazenista()
+    Private Function SaveArmazenista() As Boolean
         Dim A As New Armazenista
-        A.Nome = txtArmNome.Text
-        A.Endereço = txtArmEndereço.Text
-        A.Telefone = txtArmTelefone.Text
-        A.NIF_arm = txtArmNIF.Text
+        Try
+            A.Nome = txtArmNome.Text
+            A.Endereço = txtArmEndereço.Text
+            A.Telefone = txtArmTelefone.Text
+            A.NIF_arm = txtArmNIF.Text
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            Return False
+        End Try
         If adding Then
             InsertArmazenista(A)
             ListBox2.Items.Add(A)
@@ -943,7 +954,8 @@ Public Class openingForm
             updateArmazenista(A)
             ListBox2.Items(currentSelection) = A
         End If
-    End Sub
+        Return True
+    End Function
 
     ''LISTA DE FORNECEDORES
     Private Sub ListBox3_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox3.SelectedIndexChanged
@@ -1146,9 +1158,13 @@ Public Class openingForm
                            "EXEC GestFarm.p_InsertFarmacia @nome, @endereço, @telefone, @NIF_farmacia, @n_alvara"
 
         CN.Open()
-
-        CMD.ExecuteNonQuery()
-
+        Try
+            CMD.ExecuteNonQuery()
+        Catch ex As Exception
+            Throw New Exception("Falha ao inserir farmácia na base de dados. " & vbCrLf & "ERROR MESSAGE: " & vbCrLf & ex.Message)
+        Finally
+            CN.Close()
+        End Try
         CN.Close()
     End Sub
 
@@ -1189,9 +1205,13 @@ Public Class openingForm
                            "EXEC GestFarm.p_UpdateFarmacia @nome, @endereço, @telefone, @NIF_farmacia, @n_alvara"
 
         CN.Open()
-
-        CMD.ExecuteNonQuery()
-
+        Try
+            CMD.ExecuteNonQuery()
+        Catch ex As Exception
+            Throw New Exception("Falha ao actualizar Farmácia na base de dados " & vbCrLf & "ERROR MESSAGE: " & vbCrLf & ex.Message)
+        Finally
+            CN.Close()
+        End Try
         CN.Close()
     End Sub
 
@@ -1209,7 +1229,7 @@ Public Class openingForm
         Try
             CMD.ExecuteNonQuery()
         Catch ex As Exception
-            Throw New Exception("Failed to delete contact in database. " & vbCrLf & "ERROR MESSAGE: " & vbCrLf & ex.Message)
+            Throw New Exception("Falha ao remover Farmácia na base de dados " & vbCrLf & "ERROR MESSAGE: " & vbCrLf & ex.Message)
         Finally
             CN.Close()
         End Try
@@ -1247,9 +1267,13 @@ Public Class openingForm
                            "EXEC GestFarm.p_InsertArmazenista @nome, @NIF_arm, @telefone, @endereço"
 
         CN.Open()
-
-        CMD.ExecuteNonQuery()
-
+        Try
+            CMD.ExecuteNonQuery()
+        Catch ex As Exception
+            Throw New Exception("Falha ao inserir armazenista na base de dados " & vbCrLf & "ERROR MESSAGE: " & vbCrLf & ex.Message)
+        Finally
+            CN.Close()
+        End Try
         CN.Close()
     End Sub
 
@@ -1284,9 +1308,13 @@ Public Class openingForm
                            "EXEC GestFarm.p_UpdateArmazenista @nome, @NIF_arm, @telefone, @endereço"
 
         CN.Open()
-
-        CMD.ExecuteNonQuery()
-
+        Try
+            CMD.ExecuteNonQuery()
+        Catch ex As Exception
+            Throw New Exception("Falha a actualizar armazenista na base de dados " & vbCrLf & "ERROR MESSAGE: " & vbCrLf & ex.Message)
+        Finally
+            CN.Close()
+        End Try
         CN.Close()
     End Sub
 
@@ -1304,7 +1332,7 @@ Public Class openingForm
         Try
             CMD.ExecuteNonQuery()
         Catch ex As Exception
-            Throw New Exception("Failed to delete contact in database. " & vbCrLf & "ERROR MESSAGE: " & vbCrLf & ex.Message)
+            Throw New Exception("Falha a eliminar armazenista na base de dados " & vbCrLf & "ERROR MESSAGE: " & vbCrLf & ex.Message)
         Finally
             CN.Close()
         End Try
