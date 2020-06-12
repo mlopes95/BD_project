@@ -6,6 +6,8 @@ Public Class openingForm
     Dim adding As Boolean
     Dim flagNome As Boolean
     Dim flagArmNome As Boolean
+    Dim farmSucess, armSucess As Boolean
+
 
     Private Sub TestConnection()
         Dim CN As New SqlConnection("Data Source = tcp:mednat.ieeta.pt\SQLSERVER,8101;" &
@@ -77,7 +79,10 @@ Public Class openingForm
         Dim idx As Integer = ListBox1.FindString(textNIF.Text)
         ListBox1.SelectedIndex = idx
         ListBox1.Enabled = True
-        ShowButtons()
+        If farmSucess Then
+            ShowButtons()
+            listaFarmacias()
+        End If
     End Sub
 
     Private Sub buttonCancel_Click(sender As Object, e As EventArgs) Handles buttonCancel.Click
@@ -144,7 +149,10 @@ Public Class openingForm
         Dim idx As Integer = ListBox2.FindString(txtArmNIF.Text)
         ListBox2.SelectedIndex = idx
         ListBox2.Enabled = True
-        ShowButtonsArm()
+        If armSucess Then
+            ShowButtonsArm()
+            listaArmazenistas()
+        End If
     End Sub
 
     '' ON LOAD & LISTS-----------------------------------------------------------------------------------------------
@@ -153,6 +161,8 @@ Public Class openingForm
         ShowButtons()
         CN = New SqlConnection("Data Source = tcp:mednat.ieeta.pt\SQLSERVER,8101;" &
         "Initial Catalog = p7g6; uid = p7g6; password = 202207059598@Bd")
+        'CN = New SqlConnection("Data Source = localhost; Integrated Security = true;" &
+        '"Initial Catalog = Farmacias;")
     End Sub
 
     Private Sub listFarmacia_Click(sender As Object, e As EventArgs) Handles listFarmacia.Click
@@ -167,24 +177,8 @@ Public Class openingForm
         listStockArmPanel.Hide()
         ShowButtons()
 
-        CMD = New SqlCommand
-        CMD.Connection = CN
+        listaFarmacias()
 
-        CMD.CommandText = "SELECT * FROM GestFarm.Farmacia"
-        CN.Open()
-        Dim RDR As SqlDataReader
-        RDR = CMD.ExecuteReader
-        ListBox1.Items.Clear()
-        While RDR.Read
-            Dim F As New Farmacia
-            F.Nome = RDR.Item("nome")
-            F.Endereco = RDR.Item("endereço")
-            F.Telefone = Convert.ToString(IIf(RDR.IsDBNull(RDR.GetOrdinal("telefone")), "", RDR.Item("telefone")))
-            F.NIF_farmacia = Convert.ToString(IIf(RDR.IsDBNull(RDR.GetOrdinal("nif_farmacia")), "", RDR.Item("nif_farmacia")))
-            F.N_alvara = Convert.ToString(IIf(RDR.IsDBNull(RDR.GetOrdinal("n_alvara")), "", RDR.Item("n_alvara")))
-            ListBox1.Items.Add(F)
-        End While
-        CN.Close()
         currentSelection = 0
         ShowFarmacia()
     End Sub
@@ -200,23 +194,7 @@ Public Class openingForm
         stockFarmPanel.Hide()
         listStockArmPanel.Hide()
         ShowButtonsArm()
-        CMD = New SqlCommand
-        CMD.Connection = CN
-
-        CMD.CommandText = "SELECT * FROM GestFarm.Armazenista"
-        CN.Open()
-        Dim RDR As SqlDataReader
-        RDR = CMD.ExecuteReader
-        ListBox2.Items.Clear()
-        While RDR.Read
-            Dim A As New Armazenista
-            A.Nome = RDR.Item("nome")
-            A.Endereço = RDR.Item("endereço")
-            A.Telefone = Convert.ToString(IIf(RDR.IsDBNull(RDR.GetOrdinal("telefone")), "", RDR.Item("telefone")))
-            A.NIF_arm = Convert.ToString(IIf(RDR.IsDBNull(RDR.GetOrdinal("NIF_arm")), "", RDR.Item("NIF_arm")))
-            ListBox2.Items.Add(A)
-        End While
-        CN.Close()
+        listaArmazenistas()
         currentSelection = 0
         ShowArmazenistas()
     End Sub
@@ -463,6 +441,9 @@ Public Class openingForm
             SF.Ref_farmaco = Convert.ToString(IIf(RDR.IsDBNull(RDR.GetOrdinal("ref_farmaco")), "", RDR.Item("ref_farmaco")))
             SF.Nome_farmaco = RDR.Item("nome_farmaco")
             SF.Quantidade = Convert.ToString(IIf(RDR.IsDBNull(RDR.GetOrdinal("quantidade")), "", RDR.Item("quantidade")))
+            SF.Nome_lab = RDR.Item("nome_lab")
+            SF.Lab_cod = Convert.ToString(IIf(RDR.IsDBNull(RDR.GetOrdinal("lab_cod")), "", RDR.Item("lab_cod")))
+            SF.Pa = RDR.Item("p_activo")
             ListBox8.Items.Add(SF)
         End While
         CN.Close()
@@ -502,6 +483,9 @@ Public Class openingForm
             SN.Nome_farmacia = RDR.Item("nome_farmacia")
             SN.Ref = Convert.ToString(IIf(RDR.IsDBNull(RDR.GetOrdinal("ref")), "", RDR.Item("ref")))
             SN.Quantidade = Convert.ToString(IIf(RDR.IsDBNull(RDR.GetOrdinal("quantidade")), "", RDR.Item("quantidade")))
+            SN.Nome_lab = RDR.Item("nome_lab")
+            SN.Lab_cod = Convert.ToString(IIf(RDR.IsDBNull(RDR.GetOrdinal("lab_cod")), "", RDR.Item("lab_cod")))
+            SN.Pa = RDR.Item("p_activo")
             ListBox9.Items.Add(SN)
         End While
         CN.Close()
@@ -512,13 +496,13 @@ Public Class openingForm
     Private Sub searchPA_Click(sender As Object, e As EventArgs) Handles searchPA.Click
         CMD = New SqlCommand
         CMD.Connection = CN
-        flagNome = True
+        flagNome = False
         Dim nome As New SqlParameter
         Dim nif As New SqlParameter
 
         nome.ParameterName = "@nome"
         nome.SqlDbType = SqlDbType.VarChar
-        nome.Value = txtSearchNome.Text
+        nome.Value = txtSearchPA.Text
 
 
         nif.ParameterName = "@nif"
@@ -543,11 +527,13 @@ Public Class openingForm
             SPA.Ref = Convert.ToString(IIf(RDR.IsDBNull(RDR.GetOrdinal("ref")), "", RDR.Item("ref")))
             SPA.Nif_farmacia = Convert.ToString(IIf(RDR.IsDBNull(RDR.GetOrdinal("nif_farmacia")), "", RDR.Item("nif_farmacia")))
             SPA.Quantidade = Convert.ToString(IIf(RDR.IsDBNull(RDR.GetOrdinal("quantidade")), "", RDR.Item("quantidade")))
+            SPA.Nome_lab = RDR.Item("nome_lab")
+            SPA.Lab_cod = Convert.ToString(IIf(RDR.IsDBNull(RDR.GetOrdinal("lab_cod")), "", RDR.Item("lab_cod")))
+            SPA.Pa = RDR.Item("p_activo")
             ListBox9.Items.Add(SPA)
         End While
         CN.Close()
         currentSelection = 0
-        ListBox9.SelectedIndex = currentSelection
         ShowSearch()
     End Sub
 
@@ -588,6 +574,9 @@ Public Class openingForm
             SA.Ref_farm = Convert.ToString(IIf(RDR.IsDBNull(RDR.GetOrdinal("ref_farmaco")), "", RDR.Item("ref_farmaco")))
             SA.Nome_farm = RDR.Item("nome_farmaco")
             SA.Quantidade = Convert.ToString(IIf(RDR.IsDBNull(RDR.GetOrdinal("quantidade")), "", RDR.Item("quantidade")))
+            SA.Nome_lab = RDR.Item("nome_lab")
+            SA.Lab_cod = Convert.ToString(IIf(RDR.IsDBNull(RDR.GetOrdinal("lab_cod")), "", RDR.Item("lab_cod")))
+            SA.Pa = RDR.Item("p_activo")
             ListBox11.Items.Add(SA)
         End While
         CN.Close()
@@ -627,6 +616,9 @@ Public Class openingForm
             SAN.Nome_arm = RDR.Item("nome_armazenista")
             SAN.Ref_farmaco = Convert.ToString(IIf(RDR.IsDBNull(RDR.GetOrdinal("ref_farmaco")), "", RDR.Item("ref_farmaco")))
             SAN.Quantidade = Convert.ToString(IIf(RDR.IsDBNull(RDR.GetOrdinal("quantidade")), "", RDR.Item("quantidade")))
+            SAN.Nome_lab = RDR.Item("nome_lab")
+            SAN.Lab_cod = Convert.ToString(IIf(RDR.IsDBNull(RDR.GetOrdinal("lab_cod")), "", RDR.Item("lab_cod")))
+            SAN.Pa = RDR.Item("p_activo")
             ListBox10.Items.Add(SAN)
         End While
         CN.Close()
@@ -666,6 +658,9 @@ Public Class openingForm
             SAN.Nome_arm = RDR.Item("nome_armazenista")
             SAN.Ref_farmaco = Convert.ToString(IIf(RDR.IsDBNull(RDR.GetOrdinal("ref_farmaco")), "", RDR.Item("ref_farmaco")))
             SAN.Quantidade = Convert.ToString(IIf(RDR.IsDBNull(RDR.GetOrdinal("quantidade")), "", RDR.Item("quantidade")))
+            SAN.Nome_lab = RDR.Item("nome_lab")
+            SAN.Lab_cod = Convert.ToString(IIf(RDR.IsDBNull(RDR.GetOrdinal("lab_cod")), "", RDR.Item("lab_cod")))
+            SAN.Pa = RDR.Item("p_activo")
             ListBox10.Items.Add(SAN)
         End While
         CN.Close()
@@ -683,6 +678,7 @@ Public Class openingForm
         orderHistPanel.Hide()
         stockFarmPanel.Hide()
         listStockArmPanel.Hide()
+        ListBox1.Enabled = True
     End Sub
     Private Sub voltarArm_Click(sender As Object, e As EventArgs) Handles voltarArm.Click
         openPanel.Show()
@@ -705,6 +701,10 @@ Public Class openingForm
         orderHistPanel.Hide()
         stockFarmPanel.Hide()
         listStockArmPanel.Hide()
+        txtSearchArmPA.Text = ""
+        txtSearchArmName.Text = ""
+        ListBox10.Items.Clear()
+
     End Sub
     Private Sub voltarListForn_Click(sender As Object, e As EventArgs) Handles voltarListForn.Click
         backToFarm()
@@ -720,10 +720,17 @@ Public Class openingForm
 
     Private Sub voltarOrdHist_Click(sender As Object, e As EventArgs) Handles voltarOrdHist.Click
         backToFarm()
+        txtFarmacoNome.Text = ""
+        txtFarmacoRef.Text = ""
+        txtFarmacoPA.Text = ""
+        ListBox7.Items.Clear()
     End Sub
 
     Private Sub voltarStock_Click(sender As Object, e As EventArgs) Handles voltarStock.Click
         backToFarm()
+        txtSearchNome.Text = ""
+        txtSearchPA.Text = ""
+        ListBox9.Items.Clear()
     End Sub
 
     ' HELPER FUNCTIONS-----------------------------------------------------------------------------------------------------------
@@ -792,6 +799,12 @@ Public Class openingForm
         txtRefFarmArm.ReadOnly = True
         txtNomeFarmArm.ReadOnly = True
         txtQtArm.ReadOnly = True
+        txtLabArm.ReadOnly = True
+        txtCodLabArm.ReadOnly = True
+        txtLab.ReadOnly = True
+        txtCodLab.ReadOnly = True
+        txtStockPA.ReadOnly = True
+        txtStockArmPA.ReadOnly = True
     End Sub
 
     Private Sub UnlockTextFields()
@@ -834,6 +847,12 @@ Public Class openingForm
         txtRefFarmArm.ReadOnly = False
         txtNomeFarmArm.ReadOnly = False
         txtQtArm.ReadOnly = False
+        txtLabArm.ReadOnly = False
+        txtCodLabArm.ReadOnly = False
+        txtLab.ReadOnly = False
+        txtCodLab.ReadOnly = False
+        txtStockPA.ReadOnly = False
+        txtStockArmPA.ReadOnly = False
     End Sub
 
     Private Sub ClearFields()
@@ -871,6 +890,12 @@ Public Class openingForm
         txtRefFarmArm.Text = ""
         txtNomeFarmArm.Text = ""
         txtQtArm.Text = ""
+        txtLabArm.Text = ""
+        txtCodLabArm.Text = ""
+        txtLab.Text = ""
+        txtCodLab.Text = ""
+        txtStockPA.Text = ""
+        txtStockArmPA.Text = ""
     End Sub
 
     Private Sub HideButtons()
@@ -890,11 +915,24 @@ Public Class openingForm
 
     Private Function SaveFarmacia() As Boolean
         Dim F As New Farmacia
+        farmSucess = False
         Try
             F.Nome = textNome.Text
+            If textNome.TextLength >= 50 Then
+                Throw New Exception("Por favor insira menos caracteres!")
+            End If
             F.Endereco = textEndereco.Text
+            If textEndereco.TextLength >= 100 Then
+                Throw New Exception("Por favor insira menos caracteres!")
+            End If
             F.Telefone = textTelefone.Text
+            If textTelefone.TextLength > 9 Then
+                Throw New Exception("Telefone precisa ter 9 digitos!")
+            End If
             F.NIF_farmacia = textNIF.Text
+            If textNIF.TextLength > 9 Then
+                Throw New Exception("NIF precisa ter 9 digitos!")
+            End If
             F.N_alvara = textAlvara.Text
         Catch ex As Exception
             MsgBox(ex.Message)
@@ -902,11 +940,13 @@ Public Class openingForm
         End Try
         If adding Then
                 InsertFarmacia(F)
-                ListBox1.Items.Add(F)
-            Else
+            ListBox1.Items.Add(F)
+            farmSucess = True
+        Else
                 updateFarmacia(F)
-                ListBox1.Items(currentSelection) = F
-            End If
+            ListBox1.Items(currentSelection) = F
+            farmSucess = True
+        End If
             Return True
     End Function
 
@@ -938,11 +978,28 @@ Public Class openingForm
 
     Private Function SaveArmazenista() As Boolean
         Dim A As New Armazenista
+        armSucess = False
         Try
             A.Nome = txtArmNome.Text
+            If txtArmNome.TextLength >= 50 Then
+                ClearFields()
+                Throw New Exception("Por favor insira menos caracteres!")
+            End If
             A.Endereço = txtArmEndereço.Text
+            If txtArmEndereço.TextLength >= 100 Then
+                ClearFields()
+                Throw New Exception("Por favor insira menos caracteres!")
+            End If
             A.Telefone = txtArmTelefone.Text
+            If txtArmTelefone.TextLength > 9 Then
+                ClearFields()
+                Throw New Exception("Telefone precisa ter até 9 digitos!")
+            End If
             A.NIF_arm = txtArmNIF.Text
+            If txtArmNIF.TextLength > 9 Then
+                ClearFields()
+                Throw New Exception("NIF precisa ter até 9 digitos!")
+            End If
         Catch ex As Exception
             MsgBox(ex.Message)
             Return False
@@ -950,9 +1007,11 @@ Public Class openingForm
         If adding Then
             InsertArmazenista(A)
             ListBox2.Items.Add(A)
+            armSucess = True
         Else
             updateArmazenista(A)
             ListBox2.Items(currentSelection) = A
+            armSucess = True
         End If
         Return True
     End Function
@@ -1055,6 +1114,9 @@ Public Class openingForm
         txtNomeFarmaco.Text = SF.Nome_farmaco
         txtRefFarmaco.Text = SF.Ref_farmaco
         txtQtFarm.Text = SF.Quantidade
+        txtLab.Text = SF.Nome_lab
+        txtCodLab.Text = SF.Lab_cod
+        txtStockPA.Text = SF.Pa
     End Sub
 
     Private Sub ListBox9_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox9.SelectedIndexChanged
@@ -1070,12 +1132,18 @@ Public Class openingForm
             txtNomeFarmaco.Text = SN.Nome_farmaco
             txtRefFarmaco.Text = SN.Ref
             txtQtFarm.Text = SN.Quantidade
+            txtLab.Text = SN.Nome_lab
+            txtCodLab.Text = SN.Lab_cod
+            txtStockPA.Text = SN.Pa
         Else
             Dim SPA As New searchPA
             SPA = CType(ListBox9.Items.Item(currentSelection), searchPA)
             txtNomeFarmaco.Text = SPA.Nome_farmaco
             txtRefFarmaco.Text = SPA.Ref
             txtQtFarm.Text = SPA.Quantidade
+            txtLab.Text = SPA.Nome_lab
+            txtCodLab.Text = SPA.Lab_cod
+            txtStockPA.Text = SPA.Pa
         End If
     End Sub
 
@@ -1094,6 +1162,9 @@ Public Class openingForm
         txtRefFarmArm.Text = SA.Ref_farm
         txtNomeFarmArm.Text = SA.Nome_farm
         txtQtArm.Text = SA.Quantidade
+        txtLabArm.Text = SA.Nome_lab
+        txtCodLabArm.Text = SA.Lab_cod
+        txtStockArmPA.Text = SA.Pa
     End Sub
 
     Private Sub ListBox10_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox10.SelectedIndexChanged
@@ -1109,12 +1180,18 @@ Public Class openingForm
             txtNomeFarmArm.Text = SAN.Nome_farmaco
             txtRefFarmArm.Text = SAN.Ref_farmaco
             txtQtArm.Text = SAN.Quantidade
+            txtLabArm.Text = SAN.Nome_lab
+            txtCodLabArm.Text = SAN.Lab_cod
+            txtStockArmPA.Text = SAN.Pa
         Else
             Dim SAN As New searchStockArmName
             SAN = CType(ListBox10.Items.Item(currentSelection), searchStockArmName)
             txtNomeFarmArm.Text = SAN.Nome_farmaco
             txtRefFarmArm.Text = SAN.Ref_farmaco
             txtQtArm.Text = SAN.Quantidade
+            txtLabArm.Text = SAN.Nome_lab
+            txtCodLabArm.Text = SAN.Lab_cod
+            txtStockArmPA.Text = SAN.Pa
         End If
     End Sub
 
@@ -1260,9 +1337,11 @@ Public Class openingForm
 
         CMD.Parameters.Clear()
         CMD.Parameters.Add(nome)
-        CMD.Parameters.Add(endereco)
-        CMD.Parameters.Add(telefone)
         CMD.Parameters.Add(NIF_arm)
+        CMD.Parameters.Add(telefone)
+        CMD.Parameters.Add(endereco)
+
+
         CMD.CommandText =
                            "EXEC GestFarm.p_InsertArmazenista @nome, @NIF_arm, @telefone, @endereço"
 
@@ -1336,5 +1415,46 @@ Public Class openingForm
         Finally
             CN.Close()
         End Try
+    End Sub
+
+    Private Sub listaFarmacias()
+        CMD = New SqlCommand
+        CMD.Connection = CN
+
+        CMD.CommandText = "SELECT * FROM GestFarm.Farmacia"
+        CN.Open()
+        Dim RDR As SqlDataReader
+        RDR = CMD.ExecuteReader
+        ListBox1.Items.Clear()
+        While RDR.Read
+            Dim F As New Farmacia
+            F.Nome = RDR.Item("nome")
+            F.Endereco = RDR.Item("endereço")
+            F.Telefone = Convert.ToString(IIf(RDR.IsDBNull(RDR.GetOrdinal("telefone")), "", RDR.Item("telefone")))
+            F.NIF_farmacia = Convert.ToString(IIf(RDR.IsDBNull(RDR.GetOrdinal("nif_farmacia")), "", RDR.Item("nif_farmacia")))
+            F.N_alvara = Convert.ToString(IIf(RDR.IsDBNull(RDR.GetOrdinal("n_alvara")), "", RDR.Item("n_alvara")))
+            ListBox1.Items.Add(F)
+        End While
+        CN.Close()
+    End Sub
+
+    Private Sub listaArmazenistas()
+        CMD = New SqlCommand
+        CMD.Connection = CN
+
+        CMD.CommandText = "SELECT * FROM GestFarm.Armazenista"
+        CN.Open()
+        Dim RDR As SqlDataReader
+        RDR = CMD.ExecuteReader
+        ListBox2.Items.Clear()
+        While RDR.Read
+            Dim A As New Armazenista
+            A.Nome = RDR.Item("nome")
+            A.Endereço = RDR.Item("endereço")
+            A.Telefone = Convert.ToString(IIf(RDR.IsDBNull(RDR.GetOrdinal("telefone")), "", RDR.Item("telefone")))
+            A.NIF_arm = Convert.ToString(IIf(RDR.IsDBNull(RDR.GetOrdinal("NIF_arm")), "", RDR.Item("NIF_arm")))
+            ListBox2.Items.Add(A)
+        End While
+        CN.Close()
     End Sub
 End Class

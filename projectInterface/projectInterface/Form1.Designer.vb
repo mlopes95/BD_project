@@ -130,6 +130,12 @@ Partial Class openingForm
         Me.PictureBox7 = New System.Windows.Forms.PictureBox()
         Me.ListBox6 = New System.Windows.Forms.ListBox()
         Me.stockFarmPanel = New System.Windows.Forms.Panel()
+        Me.Label49 = New System.Windows.Forms.Label()
+        Me.txtStockPA = New System.Windows.Forms.TextBox()
+        Me.Label47 = New System.Windows.Forms.Label()
+        Me.txtCodLab = New System.Windows.Forms.TextBox()
+        Me.Label48 = New System.Windows.Forms.Label()
+        Me.txtLab = New System.Windows.Forms.TextBox()
         Me.voltarStock = New System.Windows.Forms.Button()
         Me.Label37 = New System.Windows.Forms.Label()
         Me.searchPA = New System.Windows.Forms.Button()
@@ -151,6 +157,12 @@ Partial Class openingForm
         Me.PictureBox8 = New System.Windows.Forms.PictureBox()
         Me.ListBox8 = New System.Windows.Forms.ListBox()
         Me.listStockArmPanel = New System.Windows.Forms.Panel()
+        Me.Label50 = New System.Windows.Forms.Label()
+        Me.txtStockArmPA = New System.Windows.Forms.TextBox()
+        Me.Label46 = New System.Windows.Forms.Label()
+        Me.txtCodLabArm = New System.Windows.Forms.TextBox()
+        Me.Label45 = New System.Windows.Forms.Label()
+        Me.txtLabArm = New System.Windows.Forms.TextBox()
         Me.voltarStockArm = New System.Windows.Forms.Button()
         Me.Label38 = New System.Windows.Forms.Label()
         Me.searchArmPA = New System.Windows.Forms.Button()
@@ -219,7 +231,7 @@ Partial Class openingForm
         Me.farmPanel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.farmPanel.Location = New System.Drawing.Point(0, 0)
         Me.farmPanel.Name = "farmPanel"
-        Me.farmPanel.Size = New System.Drawing.Size(812, 469)
+        Me.farmPanel.Size = New System.Drawing.Size(812, 488)
         Me.farmPanel.TabIndex = 21
         Me.farmPanel.Visible = False
         '
@@ -425,7 +437,7 @@ Partial Class openingForm
         Me.ListBox1.Location = New System.Drawing.Point(2, 2)
         Me.ListBox1.Margin = New System.Windows.Forms.Padding(2)
         Me.ListBox1.Name = "ListBox1"
-        Me.ListBox1.Size = New System.Drawing.Size(226, 481)
+        Me.ListBox1.Size = New System.Drawing.Size(226, 494)
         Me.ListBox1.TabIndex = 1
         '
         'openPanel
@@ -437,7 +449,7 @@ Partial Class openingForm
         Me.openPanel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.openPanel.Location = New System.Drawing.Point(0, 0)
         Me.openPanel.Name = "openPanel"
-        Me.openPanel.Size = New System.Drawing.Size(812, 469)
+        Me.openPanel.Size = New System.Drawing.Size(812, 488)
         Me.openPanel.TabIndex = 18
         '
         'Label1
@@ -501,7 +513,7 @@ Partial Class openingForm
         Me.armPanel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.armPanel.Location = New System.Drawing.Point(0, 0)
         Me.armPanel.Name = "armPanel"
-        Me.armPanel.Size = New System.Drawing.Size(812, 469)
+        Me.armPanel.Size = New System.Drawing.Size(812, 488)
         Me.armPanel.TabIndex = 28
         Me.armPanel.Visible = False
         '
@@ -673,7 +685,7 @@ Partial Class openingForm
         Me.listForn.Dock = System.Windows.Forms.DockStyle.Fill
         Me.listForn.Location = New System.Drawing.Point(0, 0)
         Me.listForn.Name = "listForn"
-        Me.listForn.Size = New System.Drawing.Size(812, 469)
+        Me.listForn.Size = New System.Drawing.Size(812, 488)
         Me.listForn.TabIndex = 39
         '
         'txtNIFForn
@@ -768,7 +780,7 @@ Partial Class openingForm
         Me.ListBox3.Location = New System.Drawing.Point(2, 2)
         Me.ListBox3.Margin = New System.Windows.Forms.Padding(2)
         Me.ListBox3.Name = "ListBox3"
-        Me.ListBox3.Size = New System.Drawing.Size(226, 468)
+        Me.ListBox3.Size = New System.Drawing.Size(226, 494)
         Me.ListBox3.TabIndex = 2
         '
         'clientePanel
@@ -789,7 +801,7 @@ Partial Class openingForm
         Me.clientePanel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.clientePanel.Location = New System.Drawing.Point(0, 0)
         Me.clientePanel.Name = "clientePanel"
-        Me.clientePanel.Size = New System.Drawing.Size(812, 469)
+        Me.clientePanel.Size = New System.Drawing.Size(812, 488)
         Me.clientePanel.TabIndex = 39
         '
         'voltarCliente
@@ -899,7 +911,7 @@ Partial Class openingForm
         Me.ListBox4.Location = New System.Drawing.Point(0, 0)
         Me.ListBox4.Margin = New System.Windows.Forms.Padding(2)
         Me.ListBox4.Name = "ListBox4"
-        Me.ListBox4.Size = New System.Drawing.Size(226, 468)
+        Me.ListBox4.Size = New System.Drawing.Size(226, 494)
         Me.ListBox4.TabIndex = 2
         '
         'funcPanel
@@ -916,7 +928,7 @@ Partial Class openingForm
         Me.funcPanel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.funcPanel.Location = New System.Drawing.Point(0, 0)
         Me.funcPanel.Name = "funcPanel"
-        Me.funcPanel.Size = New System.Drawing.Size(812, 469)
+        Me.funcPanel.Size = New System.Drawing.Size(812, 488)
         Me.funcPanel.TabIndex = 39
         '
         'voltarFunc
@@ -994,7 +1006,7 @@ Partial Class openingForm
         Me.ListBox5.Location = New System.Drawing.Point(0, 0)
         Me.ListBox5.Margin = New System.Windows.Forms.Padding(2)
         Me.ListBox5.Name = "ListBox5"
-        Me.ListBox5.Size = New System.Drawing.Size(226, 481)
+        Me.ListBox5.Size = New System.Drawing.Size(226, 494)
         Me.ListBox5.TabIndex = 2
         '
         'orderHistPanel
@@ -1024,7 +1036,7 @@ Partial Class openingForm
         Me.orderHistPanel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.orderHistPanel.Location = New System.Drawing.Point(0, 0)
         Me.orderHistPanel.Name = "orderHistPanel"
-        Me.orderHistPanel.Size = New System.Drawing.Size(812, 469)
+        Me.orderHistPanel.Size = New System.Drawing.Size(812, 488)
         Me.orderHistPanel.TabIndex = 39
         '
         'Label30
@@ -1208,11 +1220,17 @@ Partial Class openingForm
         Me.ListBox6.Location = New System.Drawing.Point(0, 0)
         Me.ListBox6.Margin = New System.Windows.Forms.Padding(2)
         Me.ListBox6.Name = "ListBox6"
-        Me.ListBox6.Size = New System.Drawing.Size(226, 481)
+        Me.ListBox6.Size = New System.Drawing.Size(226, 494)
         Me.ListBox6.TabIndex = 2
         '
         'stockFarmPanel
         '
+        Me.stockFarmPanel.Controls.Add(Me.Label49)
+        Me.stockFarmPanel.Controls.Add(Me.txtStockPA)
+        Me.stockFarmPanel.Controls.Add(Me.Label47)
+        Me.stockFarmPanel.Controls.Add(Me.txtCodLab)
+        Me.stockFarmPanel.Controls.Add(Me.Label48)
+        Me.stockFarmPanel.Controls.Add(Me.txtLab)
         Me.stockFarmPanel.Controls.Add(Me.voltarStock)
         Me.stockFarmPanel.Controls.Add(Me.Label37)
         Me.stockFarmPanel.Controls.Add(Me.searchPA)
@@ -1236,8 +1254,56 @@ Partial Class openingForm
         Me.stockFarmPanel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.stockFarmPanel.Location = New System.Drawing.Point(0, 0)
         Me.stockFarmPanel.Name = "stockFarmPanel"
-        Me.stockFarmPanel.Size = New System.Drawing.Size(812, 469)
+        Me.stockFarmPanel.Size = New System.Drawing.Size(812, 488)
         Me.stockFarmPanel.TabIndex = 39
+        '
+        'Label49
+        '
+        Me.Label49.AutoSize = True
+        Me.Label49.Location = New System.Drawing.Point(526, 273)
+        Me.Label49.Name = "Label49"
+        Me.Label49.Size = New System.Drawing.Size(80, 13)
+        Me.Label49.TabIndex = 47
+        Me.Label49.Text = "Principio Activo"
+        '
+        'txtStockPA
+        '
+        Me.txtStockPA.Location = New System.Drawing.Point(525, 289)
+        Me.txtStockPA.Name = "txtStockPA"
+        Me.txtStockPA.Size = New System.Drawing.Size(196, 20)
+        Me.txtStockPA.TabIndex = 46
+        '
+        'Label47
+        '
+        Me.Label47.AutoSize = True
+        Me.Label47.Location = New System.Drawing.Point(526, 229)
+        Me.Label47.Name = "Label47"
+        Me.Label47.Size = New System.Drawing.Size(96, 13)
+        Me.Label47.TabIndex = 45
+        Me.Label47.Text = "Código Laboratório"
+        '
+        'txtCodLab
+        '
+        Me.txtCodLab.Location = New System.Drawing.Point(525, 245)
+        Me.txtCodLab.Name = "txtCodLab"
+        Me.txtCodLab.Size = New System.Drawing.Size(196, 20)
+        Me.txtCodLab.TabIndex = 44
+        '
+        'Label48
+        '
+        Me.Label48.AutoSize = True
+        Me.Label48.Location = New System.Drawing.Point(524, 185)
+        Me.Label48.Name = "Label48"
+        Me.Label48.Size = New System.Drawing.Size(60, 13)
+        Me.Label48.TabIndex = 43
+        Me.Label48.Text = "Laboratório"
+        '
+        'txtLab
+        '
+        Me.txtLab.Location = New System.Drawing.Point(525, 200)
+        Me.txtLab.Name = "txtLab"
+        Me.txtLab.Size = New System.Drawing.Size(196, 20)
+        Me.txtLab.TabIndex = 42
         '
         'voltarStock
         '
@@ -1251,7 +1317,7 @@ Partial Class openingForm
         'Label37
         '
         Me.Label37.AutoSize = True
-        Me.Label37.Location = New System.Drawing.Point(538, 325)
+        Me.Label37.Location = New System.Drawing.Point(538, 338)
         Me.Label37.Name = "Label37"
         Me.Label37.Size = New System.Drawing.Size(138, 13)
         Me.Label37.TabIndex = 36
@@ -1259,7 +1325,7 @@ Partial Class openingForm
         '
         'searchPA
         '
-        Me.searchPA.Location = New System.Drawing.Point(639, 337)
+        Me.searchPA.Location = New System.Drawing.Point(639, 350)
         Me.searchPA.Name = "searchPA"
         Me.searchPA.Size = New System.Drawing.Size(75, 23)
         Me.searchPA.TabIndex = 35
@@ -1268,7 +1334,7 @@ Partial Class openingForm
         '
         'txtSearchPA
         '
-        Me.txtSearchPA.Location = New System.Drawing.Point(539, 339)
+        Me.txtSearchPA.Location = New System.Drawing.Point(539, 352)
         Me.txtSearchPA.Name = "txtSearchPA"
         Me.txtSearchPA.Size = New System.Drawing.Size(100, 20)
         Me.txtSearchPA.TabIndex = 34
@@ -1276,7 +1342,7 @@ Partial Class openingForm
         'Label36
         '
         Me.Label36.AutoSize = True
-        Me.Label36.Location = New System.Drawing.Point(285, 325)
+        Me.Label36.Location = New System.Drawing.Point(285, 338)
         Me.Label36.Name = "Label36"
         Me.Label36.Size = New System.Drawing.Size(91, 13)
         Me.Label36.TabIndex = 33
@@ -1284,7 +1350,7 @@ Partial Class openingForm
         '
         'searchNome
         '
-        Me.searchNome.Location = New System.Drawing.Point(386, 337)
+        Me.searchNome.Location = New System.Drawing.Point(386, 350)
         Me.searchNome.Name = "searchNome"
         Me.searchNome.Size = New System.Drawing.Size(75, 23)
         Me.searchNome.TabIndex = 32
@@ -1293,7 +1359,7 @@ Partial Class openingForm
         '
         'txtSearchNome
         '
-        Me.txtSearchNome.Location = New System.Drawing.Point(286, 339)
+        Me.txtSearchNome.Location = New System.Drawing.Point(286, 352)
         Me.txtSearchNome.Name = "txtSearchNome"
         Me.txtSearchNome.Size = New System.Drawing.Size(100, 20)
         Me.txtSearchNome.TabIndex = 31
@@ -1301,14 +1367,14 @@ Partial Class openingForm
         'ListBox9
         '
         Me.ListBox9.FormattingEnabled = True
-        Me.ListBox9.Location = New System.Drawing.Point(286, 362)
+        Me.ListBox9.Location = New System.Drawing.Point(286, 375)
         Me.ListBox9.Name = "ListBox9"
         Me.ListBox9.Size = New System.Drawing.Size(428, 95)
         Me.ListBox9.TabIndex = 29
         '
         'txtNomeFarmaco
         '
-        Me.txtNomeFarmaco.Location = New System.Drawing.Point(288, 214)
+        Me.txtNomeFarmaco.Location = New System.Drawing.Point(285, 200)
         Me.txtNomeFarmaco.Name = "txtNomeFarmaco"
         Me.txtNomeFarmaco.Size = New System.Drawing.Size(196, 20)
         Me.txtNomeFarmaco.TabIndex = 28
@@ -1316,7 +1382,7 @@ Partial Class openingForm
         'Label35
         '
         Me.Label35.AutoSize = True
-        Me.Label35.Location = New System.Drawing.Point(285, 200)
+        Me.Label35.Location = New System.Drawing.Point(282, 186)
         Me.Label35.Name = "Label35"
         Me.Label35.Size = New System.Drawing.Size(79, 13)
         Me.Label35.TabIndex = 27
@@ -1325,7 +1391,7 @@ Partial Class openingForm
         'Label34
         '
         Me.Label34.AutoSize = True
-        Me.Label34.Location = New System.Drawing.Point(288, 244)
+        Me.Label34.Location = New System.Drawing.Point(285, 230)
         Me.Label34.Name = "Label34"
         Me.Label34.Size = New System.Drawing.Size(103, 13)
         Me.Label34.TabIndex = 26
@@ -1334,7 +1400,7 @@ Partial Class openingForm
         'Label33
         '
         Me.Label33.AutoSize = True
-        Me.Label33.Location = New System.Drawing.Point(522, 244)
+        Me.Label33.Location = New System.Drawing.Point(286, 273)
         Me.Label33.Name = "Label33"
         Me.Label33.Size = New System.Drawing.Size(62, 13)
         Me.Label33.TabIndex = 25
@@ -1374,14 +1440,14 @@ Partial Class openingForm
         '
         'txtRefFarmaco
         '
-        Me.txtRefFarmaco.Location = New System.Drawing.Point(288, 259)
+        Me.txtRefFarmaco.Location = New System.Drawing.Point(285, 245)
         Me.txtRefFarmaco.Name = "txtRefFarmaco"
         Me.txtRefFarmaco.Size = New System.Drawing.Size(196, 20)
         Me.txtRefFarmaco.TabIndex = 20
         '
         'txtQtFarm
         '
-        Me.txtQtFarm.Location = New System.Drawing.Point(522, 259)
+        Me.txtQtFarm.Location = New System.Drawing.Point(286, 288)
         Me.txtQtFarm.Name = "txtQtFarm"
         Me.txtQtFarm.Size = New System.Drawing.Size(194, 20)
         Me.txtQtFarm.TabIndex = 19
@@ -1404,11 +1470,17 @@ Partial Class openingForm
         Me.ListBox8.Location = New System.Drawing.Point(0, 0)
         Me.ListBox8.Margin = New System.Windows.Forms.Padding(2)
         Me.ListBox8.Name = "ListBox8"
-        Me.ListBox8.Size = New System.Drawing.Size(226, 468)
+        Me.ListBox8.Size = New System.Drawing.Size(226, 494)
         Me.ListBox8.TabIndex = 2
         '
         'listStockArmPanel
         '
+        Me.listStockArmPanel.Controls.Add(Me.Label50)
+        Me.listStockArmPanel.Controls.Add(Me.txtStockArmPA)
+        Me.listStockArmPanel.Controls.Add(Me.Label46)
+        Me.listStockArmPanel.Controls.Add(Me.txtCodLabArm)
+        Me.listStockArmPanel.Controls.Add(Me.Label45)
+        Me.listStockArmPanel.Controls.Add(Me.txtLabArm)
         Me.listStockArmPanel.Controls.Add(Me.voltarStockArm)
         Me.listStockArmPanel.Controls.Add(Me.Label38)
         Me.listStockArmPanel.Controls.Add(Me.searchArmPA)
@@ -1432,8 +1504,56 @@ Partial Class openingForm
         Me.listStockArmPanel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.listStockArmPanel.Location = New System.Drawing.Point(0, 0)
         Me.listStockArmPanel.Name = "listStockArmPanel"
-        Me.listStockArmPanel.Size = New System.Drawing.Size(812, 469)
+        Me.listStockArmPanel.Size = New System.Drawing.Size(812, 488)
         Me.listStockArmPanel.TabIndex = 40
+        '
+        'Label50
+        '
+        Me.Label50.AutoSize = True
+        Me.Label50.Location = New System.Drawing.Point(526, 279)
+        Me.Label50.Name = "Label50"
+        Me.Label50.Size = New System.Drawing.Size(80, 13)
+        Me.Label50.TabIndex = 49
+        Me.Label50.Text = "Principio Activo"
+        '
+        'txtStockArmPA
+        '
+        Me.txtStockArmPA.Location = New System.Drawing.Point(525, 295)
+        Me.txtStockArmPA.Name = "txtStockArmPA"
+        Me.txtStockArmPA.Size = New System.Drawing.Size(196, 20)
+        Me.txtStockArmPA.TabIndex = 48
+        '
+        'Label46
+        '
+        Me.Label46.AutoSize = True
+        Me.Label46.Location = New System.Drawing.Point(526, 235)
+        Me.Label46.Name = "Label46"
+        Me.Label46.Size = New System.Drawing.Size(96, 13)
+        Me.Label46.TabIndex = 41
+        Me.Label46.Text = "Código Laboratório"
+        '
+        'txtCodLabArm
+        '
+        Me.txtCodLabArm.Location = New System.Drawing.Point(525, 251)
+        Me.txtCodLabArm.Name = "txtCodLabArm"
+        Me.txtCodLabArm.Size = New System.Drawing.Size(196, 20)
+        Me.txtCodLabArm.TabIndex = 40
+        '
+        'Label45
+        '
+        Me.Label45.AutoSize = True
+        Me.Label45.Location = New System.Drawing.Point(524, 191)
+        Me.Label45.Name = "Label45"
+        Me.Label45.Size = New System.Drawing.Size(60, 13)
+        Me.Label45.TabIndex = 39
+        Me.Label45.Text = "Laboratório"
+        '
+        'txtLabArm
+        '
+        Me.txtLabArm.Location = New System.Drawing.Point(525, 206)
+        Me.txtLabArm.Name = "txtLabArm"
+        Me.txtLabArm.Size = New System.Drawing.Size(196, 20)
+        Me.txtLabArm.TabIndex = 38
         '
         'voltarStockArm
         '
@@ -1447,7 +1567,7 @@ Partial Class openingForm
         'Label38
         '
         Me.Label38.AutoSize = True
-        Me.Label38.Location = New System.Drawing.Point(538, 325)
+        Me.Label38.Location = New System.Drawing.Point(538, 334)
         Me.Label38.Name = "Label38"
         Me.Label38.Size = New System.Drawing.Size(138, 13)
         Me.Label38.TabIndex = 36
@@ -1455,7 +1575,7 @@ Partial Class openingForm
         '
         'searchArmPA
         '
-        Me.searchArmPA.Location = New System.Drawing.Point(639, 337)
+        Me.searchArmPA.Location = New System.Drawing.Point(639, 346)
         Me.searchArmPA.Name = "searchArmPA"
         Me.searchArmPA.Size = New System.Drawing.Size(75, 23)
         Me.searchArmPA.TabIndex = 35
@@ -1464,7 +1584,7 @@ Partial Class openingForm
         '
         'txtSearchArmPA
         '
-        Me.txtSearchArmPA.Location = New System.Drawing.Point(539, 339)
+        Me.txtSearchArmPA.Location = New System.Drawing.Point(539, 348)
         Me.txtSearchArmPA.Name = "txtSearchArmPA"
         Me.txtSearchArmPA.Size = New System.Drawing.Size(100, 20)
         Me.txtSearchArmPA.TabIndex = 34
@@ -1472,7 +1592,7 @@ Partial Class openingForm
         'Label39
         '
         Me.Label39.AutoSize = True
-        Me.Label39.Location = New System.Drawing.Point(285, 325)
+        Me.Label39.Location = New System.Drawing.Point(285, 334)
         Me.Label39.Name = "Label39"
         Me.Label39.Size = New System.Drawing.Size(91, 13)
         Me.Label39.TabIndex = 33
@@ -1480,7 +1600,7 @@ Partial Class openingForm
         '
         'searchArmName
         '
-        Me.searchArmName.Location = New System.Drawing.Point(386, 337)
+        Me.searchArmName.Location = New System.Drawing.Point(386, 346)
         Me.searchArmName.Name = "searchArmName"
         Me.searchArmName.Size = New System.Drawing.Size(75, 23)
         Me.searchArmName.TabIndex = 32
@@ -1489,7 +1609,7 @@ Partial Class openingForm
         '
         'txtSearchArmName
         '
-        Me.txtSearchArmName.Location = New System.Drawing.Point(286, 339)
+        Me.txtSearchArmName.Location = New System.Drawing.Point(286, 348)
         Me.txtSearchArmName.Name = "txtSearchArmName"
         Me.txtSearchArmName.Size = New System.Drawing.Size(100, 20)
         Me.txtSearchArmName.TabIndex = 31
@@ -1497,14 +1617,14 @@ Partial Class openingForm
         'ListBox10
         '
         Me.ListBox10.FormattingEnabled = True
-        Me.ListBox10.Location = New System.Drawing.Point(286, 362)
+        Me.ListBox10.Location = New System.Drawing.Point(286, 371)
         Me.ListBox10.Name = "ListBox10"
         Me.ListBox10.Size = New System.Drawing.Size(428, 95)
         Me.ListBox10.TabIndex = 29
         '
         'txtNomeFarmArm
         '
-        Me.txtNomeFarmArm.Location = New System.Drawing.Point(288, 214)
+        Me.txtNomeFarmArm.Location = New System.Drawing.Point(286, 206)
         Me.txtNomeFarmArm.Name = "txtNomeFarmArm"
         Me.txtNomeFarmArm.Size = New System.Drawing.Size(196, 20)
         Me.txtNomeFarmArm.TabIndex = 28
@@ -1512,7 +1632,7 @@ Partial Class openingForm
         'Label40
         '
         Me.Label40.AutoSize = True
-        Me.Label40.Location = New System.Drawing.Point(285, 200)
+        Me.Label40.Location = New System.Drawing.Point(283, 192)
         Me.Label40.Name = "Label40"
         Me.Label40.Size = New System.Drawing.Size(79, 13)
         Me.Label40.TabIndex = 27
@@ -1521,7 +1641,7 @@ Partial Class openingForm
         'Label41
         '
         Me.Label41.AutoSize = True
-        Me.Label41.Location = New System.Drawing.Point(288, 244)
+        Me.Label41.Location = New System.Drawing.Point(286, 236)
         Me.Label41.Name = "Label41"
         Me.Label41.Size = New System.Drawing.Size(103, 13)
         Me.Label41.TabIndex = 26
@@ -1530,7 +1650,7 @@ Partial Class openingForm
         'Label42
         '
         Me.Label42.AutoSize = True
-        Me.Label42.Location = New System.Drawing.Point(522, 244)
+        Me.Label42.Location = New System.Drawing.Point(288, 280)
         Me.Label42.Name = "Label42"
         Me.Label42.Size = New System.Drawing.Size(62, 13)
         Me.Label42.TabIndex = 25
@@ -1570,14 +1690,14 @@ Partial Class openingForm
         '
         'txtRefFarmArm
         '
-        Me.txtRefFarmArm.Location = New System.Drawing.Point(288, 259)
+        Me.txtRefFarmArm.Location = New System.Drawing.Point(286, 251)
         Me.txtRefFarmArm.Name = "txtRefFarmArm"
         Me.txtRefFarmArm.Size = New System.Drawing.Size(196, 20)
         Me.txtRefFarmArm.TabIndex = 20
         '
         'txtQtArm
         '
-        Me.txtQtArm.Location = New System.Drawing.Point(522, 259)
+        Me.txtQtArm.Location = New System.Drawing.Point(288, 295)
         Me.txtQtArm.Name = "txtQtArm"
         Me.txtQtArm.Size = New System.Drawing.Size(194, 20)
         Me.txtQtArm.TabIndex = 19
@@ -1600,23 +1720,23 @@ Partial Class openingForm
         Me.ListBox11.Location = New System.Drawing.Point(0, 0)
         Me.ListBox11.Margin = New System.Windows.Forms.Padding(2)
         Me.ListBox11.Name = "ListBox11"
-        Me.ListBox11.Size = New System.Drawing.Size(226, 468)
+        Me.ListBox11.Size = New System.Drawing.Size(226, 494)
         Me.ListBox11.TabIndex = 2
         '
         'openingForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(812, 469)
+        Me.ClientSize = New System.Drawing.Size(812, 488)
         Me.Controls.Add(Me.openPanel)
-        Me.Controls.Add(Me.armPanel)
+        Me.Controls.Add(Me.clientePanel)
+        Me.Controls.Add(Me.farmPanel)
+        Me.Controls.Add(Me.listForn)
         Me.Controls.Add(Me.listStockArmPanel)
         Me.Controls.Add(Me.stockFarmPanel)
-        Me.Controls.Add(Me.farmPanel)
-        Me.Controls.Add(Me.orderHistPanel)
         Me.Controls.Add(Me.funcPanel)
-        Me.Controls.Add(Me.clientePanel)
-        Me.Controls.Add(Me.listForn)
+        Me.Controls.Add(Me.orderHistPanel)
+        Me.Controls.Add(Me.armPanel)
         Me.Name = "openingForm"
         Me.Text = "Form1"
         Me.farmPanel.ResumeLayout(False)
@@ -1798,4 +1918,16 @@ Partial Class openingForm
     Friend WithEvents PictureBox9 As PictureBox
     Friend WithEvents ListBox11 As ListBox
     Friend WithEvents listStockArm As Button
+    Friend WithEvents Label46 As Label
+    Friend WithEvents txtCodLabArm As TextBox
+    Friend WithEvents Label45 As Label
+    Friend WithEvents txtLabArm As TextBox
+    Friend WithEvents Label47 As Label
+    Friend WithEvents txtCodLab As TextBox
+    Friend WithEvents Label48 As Label
+    Friend WithEvents txtLab As TextBox
+    Friend WithEvents Label49 As Label
+    Friend WithEvents txtStockPA As TextBox
+    Friend WithEvents Label50 As Label
+    Friend WithEvents txtStockArmPA As TextBox
 End Class
